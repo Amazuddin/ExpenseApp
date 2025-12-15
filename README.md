@@ -4,7 +4,8 @@
   <img src="https://img.shields.io/badge/ASP.NET%20Core-MVC-blue" alt="ASP.NET Core">
   <img src="https://img.shields.io/badge/C%23-Language-purple" alt="C#">
   <img src="https://img.shields.io/badge/Bootstrap-4-563d7c" alt="Bootstrap">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/Entity%20Framework-Core-green" alt="Entity Framework Core">
+  <img src="https://img.shields.io/badge/jQuery-JS-0769ad" alt="jQuery">
 </p>
 
 <p align="center">
@@ -12,8 +13,6 @@
 </p>
 
 ---
-
-## 📸 Application Screenshots
 
 ### 🏠 Home Page & Landing
 <p align="center">
