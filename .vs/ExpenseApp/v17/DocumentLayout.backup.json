@@ -1,0 +1,666 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Others\\Projects\\Writing\\ExpenseApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseinfoes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseinfoes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseheads\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseheads\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseinfoes\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseinfoes\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseheads\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseheads\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseinfoes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseinfoes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\loandetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\loandetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\loanpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\loanpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\expenseviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\expenseviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\loanviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\loanviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\loan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\loan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\addpayment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\addpayment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\controllers\\expenseinfoescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:controllers\\expenseinfoescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseinfoes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseinfoes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\loans\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\loans\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\migrations\\20251211042039_loan_payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:migrations\\20251211042039_loan_payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\contexts\\expenseappcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:contexts\\expenseappcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseinfoes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseinfoes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\controllers\\expenseheadscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:controllers\\expenseheadscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\expensehead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\expensehead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\expenseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\expenseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\models\\searchexpenseinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:models\\searchexpenseinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseheads\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseheads\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\views\\expenseheads\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:views\\expenseheads\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|d:\\others\\projects\\writing\\expenseapp\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{11DE6E19-7682-459E-A305-4AEF44CF39F7}|ExpenseApp.csproj|solutionrelative:libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Delete.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseHeads\\Delete.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Delete.cshtml",
+              "RelativeToolTip": "Views\\ExpenseHeads\\Delete.cshtml",
+              "ViewState": "AgIAANkAAAAAAAAAAAAAAO4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoanPayment.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanPayment.cs",
+              "RelativeDocumentMoniker": "Models\\LoanPayment.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanPayment.cs",
+              "RelativeToolTip": "Models\\LoanPayment.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAqwBQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T04:17:36.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Delete.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseInfoes\\Delete.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Delete.cshtml",
+              "RelativeToolTip": "Views\\ExpenseInfoes\\Delete.cshtml",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAAAPgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\Details.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Details.cshtml",
+              "RelativeToolTip": "Views\\Loans\\Details.cshtml",
+              "ViewState": "AgIAAL4BAAAAAAAAAADwv9cBAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:47:01.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Delete.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\Delete.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Delete.cshtml",
+              "RelativeToolTip": "Views\\Loans\\Delete.cshtml",
+              "ViewState": "AgIAANkAAAAAAAAAAAAAAOgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:47:45.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseHeads\\Index.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Index.cshtml",
+              "RelativeToolTip": "Views\\ExpenseHeads\\Index.cshtml",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAAABcBAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoansController.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\LoansController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoansController.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\LoansController.cs",
+              "RelativeToolTip": "Controllers\\LoansController.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAAALYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T04:40:22.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseInfoes\\Index.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Index.cshtml",
+              "RelativeToolTip": "Views\\ExpenseInfoes\\Index.cshtml",
+              "ViewState": "AgIAAGkCAAAAAAAAAADwv3cCAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:40:23.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-10T07:27:19.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseInfoes\\Create.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Create.cshtml",
+              "RelativeToolTip": "Views\\ExpenseInfoes\\Create.cshtml",
+              "ViewState": "AgIAAKgBAAAAAAAAAAAuwL4BAABrAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\Edit.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Loans\\Edit.cshtml",
+              "ViewState": "AgIAAIkBAAAAAAAAAADwv58BAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:47:24.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\Index.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Index.cshtml",
+              "RelativeToolTip": "Views\\Loans\\Index.cshtml",
+              "ViewState": "AgIAANwBAAAAAAAAAAAuwOwBAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:45:54.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoanDetailsViewModel.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanDetailsViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoanDetailsViewModel.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanDetailsViewModel.cs",
+              "RelativeToolTip": "Models\\LoanDetailsViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:22:28.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseInfoes\\Details.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Details.cshtml",
+              "RelativeToolTip": "Views\\ExpenseInfoes\\Details.cshtml",
+              "ViewState": "AgIAAA0BAAAAAAAAAAD4vx0BAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:55:09.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AddPayment.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\AddPayment.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\AddPayment.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\AddPayment.cshtml",
+              "RelativeToolTip": "Views\\Loans\\AddPayment.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIkBAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:48:41.902Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ExpenseInfoesController.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\ExpenseInfoesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ExpenseInfoesController.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\ExpenseInfoesController.cs",
+              "RelativeToolTip": "Controllers\\ExpenseInfoesController.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAuwGkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T07:27:19.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ExpenseViewModel.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ExpenseViewModel.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseViewModel.cs",
+              "RelativeToolTip": "Models\\ExpenseViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:17:08.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Loan.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\Loan.cs",
+              "RelativeDocumentMoniker": "Models\\Loan.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\Loan.cs",
+              "RelativeToolTip": "Models\\Loan.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAqwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T04:55:07.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "LoanViewModel.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoanViewModel.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\LoanViewModel.cs",
+              "RelativeToolTip": "Models\\LoanViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T04:18:08.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAIwNUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Loans\\Create.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Loans\\Create.cshtml",
+              "RelativeToolTip": "Views\\Loans\\Create.cshtml",
+              "ViewState": "AgIAACMBAAAAAAAAAAAuwC8BAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T04:46:28.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "20251211042039_loan_payment.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Migrations\\20251211042039_loan_payment.cs",
+              "RelativeDocumentMoniker": "Migrations\\20251211042039_loan_payment.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Migrations\\20251211042039_loan_payment.cs",
+              "RelativeToolTip": "Migrations\\20251211042039_loan_payment.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAgwDcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T04:20:40.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseInfoes\\Edit.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseInfoes\\Edit.cshtml",
+              "RelativeToolTip": "Views\\ExpenseInfoes\\Edit.cshtml",
+              "ViewState": "AgIAAF8BAAAAAAAAAADwv3gBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:57:36.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ExpenseAppContext.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Contexts\\ExpenseAppContext.cs",
+              "RelativeDocumentMoniker": "Contexts\\ExpenseAppContext.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Contexts\\ExpenseAppContext.cs",
+              "RelativeToolTip": "Contexts\\ExpenseAppContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T07:27:36.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ExpenseHeadsController.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\ExpenseHeadsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ExpenseHeadsController.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\ExpenseHeadsController.cs",
+              "RelativeToolTip": "Controllers\\ExpenseHeadsController.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAowJ0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T07:27:29.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ExpenseHead.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseHead.cs",
+              "RelativeDocumentMoniker": "Models\\ExpenseHead.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseHead.cs",
+              "RelativeToolTip": "Models\\ExpenseHead.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T03:18:17.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ExpenseInfo.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseInfo.cs",
+              "RelativeDocumentMoniker": "Models\\ExpenseInfo.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\ExpenseInfo.cs",
+              "RelativeToolTip": "Models\\ExpenseInfo.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA6wBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T03:18:28.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "SearchExpenseInput.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\SearchExpenseInput.cs",
+              "RelativeDocumentMoniker": "Models\\SearchExpenseInput.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Models\\SearchExpenseInput.cs",
+              "RelativeToolTip": "Models\\SearchExpenseInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T03:36:56.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T03:35:44.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseHeads\\Edit.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Edit.cshtml",
+              "RelativeToolTip": "Views\\ExpenseHeads\\Edit.cshtml",
+              "ViewState": "AgIAAIABAAAAAAAAAIBJwIwBAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExpenseHeads\\Create.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\ExpenseHeads\\Create.cshtml",
+              "RelativeToolTip": "Views\\ExpenseHeads\\Create.cshtml",
+              "ViewState": "AgIAAFIBAAAAAAAAAADwv2YBAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAIBJwCAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T07:36:42.004Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Error.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T10:36:17.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T10:36:20.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAFkBAAAAAAAAAIBJwHABAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T08:02:43.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T10:36:22.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T07:27:19.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "libman.json",
+              "DocumentMoniker": "D:\\Others\\Projects\\Writing\\ExpenseApp\\libman.json",
+              "RelativeDocumentMoniker": "libman.json",
+              "ToolTip": "D:\\Others\\Projects\\Writing\\ExpenseApp\\libman.json",
+              "RelativeToolTip": "libman.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-10T07:37:05.375Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

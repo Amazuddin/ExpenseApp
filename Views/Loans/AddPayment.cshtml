@@ -1,0 +1,405 @@
+﻿@model ExpenseApp.Models.LoanPayment
+
+@{
+    ViewData["Title"] = "Add Payment";
+    var loan = ViewBag.Loan as ExpenseApp.Models.Loan;
+}
+
+<style>
+    :root {
+        --success-color: #10b981;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    body {
+        background: #f8fafc;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        padding: 1.5rem 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn-back {
+        background: white;
+        color: #059669;
+        border: none;
+        padding: 0.625rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+    .payment-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        border: none;
+        overflow: hidden;
+    }
+
+        .payment-card .card-header {
+            background: linear-gradient(to right, #d1fae5, #a7f3d0);
+            border-bottom: 3px solid #10b981;
+            padding: 1.25rem 1.5rem;
+        }
+
+            .payment-card .card-header h3 {
+                color: #065f46;
+                font-weight: 700;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 1.5rem;
+            }
+
+        .payment-card .card-body {
+            padding: 2rem;
+            background: #fafafa;
+        }
+
+    .loan-info-section {
+        background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        border: 2px solid #93c5fd;
+    }
+
+        .loan-info-section h5 {
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+    .loan-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .loan-stat {
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .loan-stat-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .loan-stat-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .form-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 1.5rem;
+        border: 2px solid #e5e7eb;
+    }
+
+    .form-label {
+        color: #374151;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+    }
+
+        .form-label.required::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        background: white;
+    }
+
+        .form-control:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            outline: none;
+            background: white;
+        }
+
+    .text-danger {
+        color: #ef4444;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+        font-weight: 500;
+    }
+
+    .save-section {
+        background: linear-gradient(to right, #d1fae5, #a7f3d0);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        border: 2px solid #6ee7b7;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-lg);
+        color: white;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+    .alert-info {
+        background: linear-gradient(to right, #fef3c7, #fde68a);
+        border: 2px solid #fbbf24;
+        color: #92400e;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .page-header {
+            padding: 1rem;
+        }
+
+        .payment-card .card-body {
+            padding: 1rem;
+        }
+
+        .form-section {
+            padding: 1rem;
+        }
+
+        .btn-save {
+            width: 100%;
+        }
+
+        .loan-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="page-header">
+    <a asp-action="Details" asp-route-id="@loan.Id" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Loan Details</span>
+    </a>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="payment-card card">
+                    <div class="card-header">
+                        <h3>
+                            <i class="fas fa-dollar-sign"></i>
+                            Add Payment for @loan.LenderName
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="loan-info-section">
+                            <h5>
+                                <i class="fas fa-info-circle"></i>
+                                Loan Information
+                            </h5>
+                            <div class="loan-stats">
+                                <div class="loan-stat">
+                                    <div class="loan-stat-label">Total Loan</div>
+                                    <div class="loan-stat-value" style="color: #3b82f6;">
+                                        ৳ @loan.LoanAmount.ToString("N2")
+                                    </div>
+                                </div>
+                                <div class="loan-stat">
+                                    <div class="loan-stat-label">Already Paid</div>
+                                    <div class="loan-stat-value" style="color: #10b981;">
+                                        ৳ @loan.AmountPaid.ToString("N2")
+                                    </div>
+                                </div>
+                                <div class="loan-stat">
+                                    <div class="loan-stat-label">Balance Due</div>
+                                    <div class="loan-stat-value" style="color: #ef4444;">
+                                        ৳ @loan.BalanceDue.ToString("N2")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (loan.BalanceDue <= 0)
+                        {
+                            <div class="alert alert-info">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>This loan is fully paid!</strong> The balance is zero.
+                            </div>
+                        }
+
+                        <form id="paymentForm">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                            <input type="hidden" asp-for="LoanId" value="@loan.Id" />
+
+                            <div class="form-section">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <label asp-for="PaymentAmount" class="form-label required">
+                                            <i class="fas fa-money-bill-wave me-1"></i>
+                                            Payment Amount (BDT)
+                                        </label>
+                                        <input asp-for="PaymentAmount" class="form-control" type="number" step="0.01" placeholder="0.00" max="@loan.BalanceDue" />
+                                        <span asp-validation-for="PaymentAmount" class="text-danger"></span>
+                                        <small class="text-muted">Maximum: ৳ @loan.BalanceDue.ToString("N2")</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="PaymentDate" class="form-label required">
+                                            <i class="far fa-calendar-alt me-1"></i>
+                                            Payment Date
+                                        </label>
+                                        <input asp-for="PaymentDate" class="form-control" type="date" value="@ViewBag.PaymentDate" />
+                                        <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label asp-for="Note" class="form-label">
+                                            <i class="fas fa-sticky-note me-1"></i>
+                                            Note (Optional)
+                                        </label>
+                                        <textarea asp-for="Note" class="form-control" rows="3" placeholder="Enter payment notes or details..."></textarea>
+                                        <span asp-validation-for="Note" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="save-section">
+                                <button type="submit" class="btn btn-save">
+                                    <i class="fa fa-check-circle me-2"></i>
+                                    Save Payment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            var balanceDue = @loan.BalanceDue;
+
+            $('#paymentForm').on('submit', function(e) {
+                e.preventDefault();
+
+                if (!$(this).valid()) {
+                    return;
+                }
+
+                var paymentAmount = parseFloat($('#PaymentAmount').val());
+
+                if (paymentAmount <= 0) {
+                    toastr.warning('Payment amount must be greater than zero.');
+                    return;
+                }
+
+                if (paymentAmount > balanceDue) {
+                    toastr.warning('Payment amount cannot exceed balance due (৳' + balanceDue.toFixed(2) + ')');
+                    return;
+                }
+
+                var formData = {
+                    LoanId: parseInt($('#LoanId').val()),
+                    PaymentAmount: paymentAmount,
+                    PaymentDate: $('#PaymentDate').val(),
+                    Note: $('#Note').val()
+                };
+
+                var submitBtn = $('.btn-save');
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>Saving...');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AddPayment", "Loans")',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.flag === 'y') {
+                            toastr.success(response.msg);
+                            setTimeout(function() {
+                                window.location.href = '@Url.Action("Details", "Loans")/' + response.loanId;
+                            }, 1500);
+                        } else {
+                            toastr.error(response.msg);
+                            submitBtn.prop('disabled', false);
+                            submitBtn.html('<i class="fa fa-check-circle me-2"></i>Save Payment');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', xhr.responseText);
+                        toastr.error('An error occurred while saving the payment.');
+                        submitBtn.prop('disabled', false);
+                        submitBtn.html('<i class="fa fa-check-circle me-2"></i>Save Payment');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,643 @@
+﻿@model ExpenseViewModel
+
+@{
+    ViewData["Title"] = "Expense Management";
+}
+
+<link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/buttons.dataTables.min.css" rel="stylesheet" />
+<link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --info-color: #06b6d4;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-header-content h1 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+        font-size: 1.75rem;
+    }
+
+    .page-header-content .subtitle {
+        color: rgba(255,255,255,0.9);
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-create-new {
+        background: white;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+        .btn-create-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: #f8fafc;
+            color: var(--primary-color);
+        }
+
+    .filter-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        border: none;
+        overflow: hidden;
+    }
+
+        .filter-card .card-header {
+            background: linear-gradient(to right, #ecfdf5, #d1fae5);
+            border-bottom: 2px solid #a7f3d0;
+            padding: 1rem 1.5rem;
+        }
+
+            .filter-card .card-header h6 {
+                color: #065f46;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+        .filter-card .card-body {
+            padding: 1.5rem;
+            background: #fafafa;
+        }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+        color: #374151;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.625rem 1rem;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
+        }
+
+    .filter-card .card-footer {
+        background: white;
+        border-top: 2px solid #e5e7eb;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-search {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+        border: none;
+        padding: 0.625rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+    }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+        }
+
+    .table-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        padding: 1.5rem;
+        margin-top: 2rem;
+        border: none;
+    }
+
+    #myTable {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        #myTable thead th {
+            background: linear-gradient(to right, #f8fafc, #f1f5f9);
+            color: #1e293b;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        #myTable tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+            #myTable tbody tr:hover {
+                background-color: #f8fafc;
+                transform: scale(1.01);
+                box-shadow: var(--shadow-sm);
+            }
+
+        #myTable tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        #myTable tfoot tr {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            font-weight: 700;
+        }
+
+        #myTable tfoot td {
+            padding: 1rem;
+            font-size: 1.1rem;
+            color: #92400e;
+        }
+
+    .action-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .action-icons a:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+    .action-icons .text-primary {
+        background: #eff6ff;
+    }
+
+        .action-icons .text-primary:hover {
+            background: #dbeafe;
+        }
+
+    .action-icons .text-success {
+        background: #f0fdf4;
+    }
+
+        .action-icons .text-success:hover {
+            background: #dcfce7;
+        }
+
+    .action-icons .text-danger {
+        background: #fef2f2;
+    }
+
+        .action-icons .text-danger:hover {
+            background: #fee2e2;
+        }
+
+    /* DataTables Custom Styling */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 1rem;
+    }
+
+        .dataTables_wrapper .dataTables_length select,
+        .dataTables_wrapper .dataTables_filter input {
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 0.375rem 0.75rem;
+        }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
+        color: white !important;
+        border-radius: 6px;
+    }
+
+    .dt-buttons {
+        margin-bottom: 1rem;
+    }
+
+    .dt-button {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+        border: none !important;
+        color: white !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 6px !important;
+        margin-right: 0.5rem !important;
+        transition: all 0.3s ease !important;
+        font-weight: 600 !important;
+    }
+
+        .dt-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm) !important;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+        }
+
+    @@media (max-width: 767px) {
+        .page-header {
+            padding: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .page-header-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .btn-create-new {
+            width: 100%;
+            text-align: center;
+        }
+
+        #myTable_wrapper .dataTables_scrollBody {
+            max-height: 300px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        .action-icons a {
+            width: 32px;
+            height: 32px;
+        }
+
+        .table-card {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="page-header">
+    <div class="page-header-content">
+        <h1><i class="fas fa-wallet me-2"></i>Expense Management</h1>
+        <div class="subtitle">Track and manage your business expenses efficiently</div>
+    </div>
+    <a asp-action="Create" class="btn btn-create-new">
+        <i class="fas fa-plus me-2"></i>
+        <span>Create New Expense</span>
+    </a>
+</div>
+
+<form asp-controller="ExpenseInfoes" asp-action="Index" method="post">
+    <div class="filter-card card">
+        <div class="card-header">
+            <h6 class="fw-bolder">
+                <i class="fas fa-filter"></i>
+                Search Filters
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="form-label" for="StartDate">
+                        <i class="far fa-calendar-alt me-1"></i> Start Date
+                    </label>
+                    <input class="form-control" type="date" id="StartDate" name="StartDate" value="@ViewBag.StartDate" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label" for="EndDate">
+                        <i class="far fa-calendar-alt me-1"></i> End Date
+                    </label>
+                    <input class="form-control" type="date" id="EndDate" name="EndDate" value="@ViewBag.EndDate" />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="expenseHeadId" class="form-label">
+                        <i class="fas fa-list-alt me-1"></i> Expense Head
+                    </label>
+                    <select id="expenseHeadId" name="ExpenseHeadId" class="form-control">
+                        <option value="0">-- Select Expense Head --</option>
+                        @foreach (var eh in ViewBag.ExpenseHeads)
+                        {
+                            if (eh.Id.ToString() == ViewData["ExpenseHeadId"])
+                            {
+                                <option value="@eh.Id" selected="selected">@eh.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@eh.Id">@eh.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-search btn-primary float-end" id="searchButton">
+                <i class="fas fa-search me-2"></i>Search
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table id="myTable" class="table table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th><i class="far fa-calendar me-1"></i> Expense Date</th>
+                    <th><i class="fas fa-tags me-1"></i> Expense Head</th>
+                    <th><i class="fas fa-align-left me-1"></i> Description</th>
+                    <th><i class="fas fa-money-bill-wave me-1"></i> Amount (BDT)</th>
+                    <th><i class="fas fa-cog me-1"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ExpenseInfo)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.ExpenseDate)</td>
+                        <td>
+                            <span class="badge bg-info text-dark" style="padding: 0.5rem 0.75rem; font-weight: 600;">
+                                @Html.DisplayFor(modelItem => item.ExpenseHead.Name)
+                            </span>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>
+                            <strong style="color: #dc2626;">৳ @Html.DisplayFor(modelItem => item.ExpenseAmount)</strong>
+                        </td>
+                        <td class="action-icons">
+                            <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Edit" class="text-primary">
+                                <i class="fa fa-pencil-alt"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" data-toggle="tooltip" title="Details" class="text-success">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Delete" class="text-danger">
+                                <i class="fa fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right; padding-right: 2rem;">
+                        <i class="fas fa-calculator me-2"></i>Total Expenses:
+                    </td>
+                    <td colspan="2">
+                        <strong style="font-size: 1.2rem; color: #dc2626;">৳ @Model.TotalAmount</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/js/jszip.min.js"></script>
+    <script src="~/lib/datatables/js/pdfmake.min.js"></script>
+    <script src="~/lib/datatables/js/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/js/buttons.print.min.js"></script>
+    <script src="~/lib/datatables/js/buttons.colVis.min.js"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Get total amount from the footer
+            var totalAmount = '@Model.TotalAmount';
+
+            // Initialize DataTable
+            var table = $('#myTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'spacer',
+                        style: 'bar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel me-1"></i> Excel',
+                        className: 'btn-success',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3] // Exclude Actions column
+                        },
+                        title: 'Expense Management Report',
+                        messageTop: 'Generated on: ' + new Date().toLocaleDateString(),
+                        messageBottom: 'Total Expenses: ৳' + totalAmount,
+                        customize: function(xlsx) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            // Add styling for total row
+                            $('row:last c', sheet).attr('s', '2');
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf me-1"></i> PDF',
+                        className: 'btn-danger',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3] // Exclude Actions column
+                        },
+                        title: 'Expense Management Report',
+                        messageTop: 'Generated on: ' + new Date().toLocaleDateString(),
+                        messageBottom: 'Total Expenses: ৳' + totalAmount,
+                        customize: function(doc) {
+                            // PDF Design Customization
+                            doc.defaultStyle.fontSize = 9;
+                            doc.styles.tableHeader.fontSize = 10;
+                            doc.styles.tableHeader.bold = true;
+                            doc.styles.tableHeader.fillColor = '#4f46e5';
+                            doc.styles.tableHeader.color = '#ffffff';
+                            doc.styles.tableHeader.alignment = 'center';
+
+                            // Title styling
+                            doc.styles.title = {
+                                fontSize: 18,
+                                bold: true,
+                                alignment: 'center',
+                                color: '#4f46e5',
+                                margin: [0, 0, 0, 10]
+                            };
+
+                            // Message styling
+                            doc.styles.message = {
+                                fontSize: 9,
+                                alignment: 'right',
+                                color: '#64748b',
+                                margin: [0, 0, 0, 10]
+                            };
+
+                            // Table body styling
+                            doc.content[2].table.widths = ['15%', '25%', '35%', '25%'];
+                            doc.content[2].layout = {
+                                hLineWidth: function(i, node) {
+                                    return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                },
+                                vLineWidth: function(i, node) {
+                                    return 0;
+                                },
+                                hLineColor: function(i, node) {
+                                    return (i === 0 || i === node.table.body.length) ? '#4f46e5' : '#e5e7eb';
+                                },
+                                paddingLeft: function(i, node) { return 8; },
+                                paddingRight: function(i, node) { return 8; },
+                                paddingTop: function(i, node) { return 6; },
+                                paddingBottom: function(i, node) { return 6; },
+                                fillColor: function(rowIndex, node, columnIndex) {
+                                    return (rowIndex === 0) ? '#4f46e5' : (rowIndex % 2 === 0) ? '#f8fafc' : null;
+                                }
+                            };
+
+                            // Center align Date and Amount columns
+                            doc.content[2].table.body.forEach(function(row, index) {
+                                if (index > 0) {
+                                    row[0].alignment = 'center'; // Date
+                                    row[3].alignment = 'right'; // Amount
+                                }
+                            });
+
+                            // Add total at the bottom
+                            doc.content[2].table.body.push([
+                                { text: '', colSpan: 2, border: [false, true, false, false] },
+                                {},
+                                {
+                                    text: 'Total Expenses:',
+                                    bold: true,
+                                    alignment: 'right',
+                                    fillColor: '#fef3c7',
+                                    border: [false, true, false, false]
+                                },
+                                {
+                                    text: '৳' + totalAmount,
+                                    bold: true,
+                                    fontSize: 11,
+                                    color: '#dc2626',
+                                    alignment: 'right',
+                                    fillColor: '#fef3c7',
+                                    border: [false, true, false, false]
+                                }
+                            ]);
+
+                            // Add footer
+                            doc['footer'] = function(currentPage, pageCount) {
+                                return {
+                                    columns: [
+                                        {
+                                            text: 'Expense Management System',
+                                            alignment: 'left',
+                                            fontSize: 8,
+                                            color: '#94a3b8',
+                                            margin: [40, 0]
+                                        },
+                                        {
+                                            text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                                            alignment: 'right',
+                                            fontSize: 8,
+                                            color: '#94a3b8',
+                                            margin: [0, 0, 40, 0]
+                                        }
+                                    ]
+                                };
+                            };
+
+                            // Add page margins
+                            doc.pageMargins = [40, 60, 40, 60];
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print me-1"></i> Print',
+                        className: 'btn-info',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3] // Exclude Actions column
+                        },
+                        title: 'Expense Management Report',
+                        messageTop: '<div style="text-align: right; color: #64748b; margin-bottom: 10px;">Generated on: ' + new Date().toLocaleDateString() + '</div>',
+                        messageBottom: '<div style="text-align: right; font-weight: bold; font-size: 14px; color: #dc2626; margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 5px;">Total Expenses: ৳' + totalAmount + '</div>',
+                        customize: function(win) {
+                            $(win.document.body).css('font-family', 'Arial, sans-serif');
+                            $(win.document.body).find('table').addClass('display').css('font-size', '11px');
+                            $(win.document.body).find('h1').css({
+                                'text-align': 'center',
+                                'color': '#4f46e5',
+                                'font-size': '24px',
+                                'margin-bottom': '20px'
+                            });
+                            $(win.document.body).find('table thead th').css({
+                                'background-color': '#4f46e5',
+                                'color': 'white',
+                                'text-align': 'center',
+                                'padding': '10px'
+                            });
+                            $(win.document.body).find('table tbody td').css({
+                                'padding': '8px',
+                                'border-bottom': '1px solid #e5e7eb'
+                            });
+                            // Style amount column
+                            $(win.document.body).find('table tbody tr').each(function() {
+                                $(this).find('td:eq(3)').css({
+                                    'text-align': 'right',
+                                    'color': '#dc2626',
+                                    'font-weight': 'bold'
+                                });
+                            });
+                        }
+                    }
+                ],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search expenses...",
+                    lengthMenu: "Show _MENU_ entries"
+                }
+            });
+
+            // Initialize tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

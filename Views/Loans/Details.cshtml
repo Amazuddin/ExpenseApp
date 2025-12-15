@@ -1,0 +1,472 @@
+﻿@model ExpenseApp.Models.LoanDetailsViewModel
+
+@{
+    ViewData["Title"] = "Loan Details";
+    var progress = Model.Loan.LoanAmount > 0 ? (Model.Loan.AmountPaid / Model.Loan.LoanAmount * 100) : 0;
+}
+
+<style>
+    :root {
+        --primary-color: #3b82f6;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        padding: 1.5rem 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-back {
+        background: white;
+        color: #2563eb;
+        border: none;
+        padding: 0.625rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+    .btn-add-payment {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        border: none;
+        padding: 0.625rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-add-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
+    .details-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+        .details-card .card-header {
+            background: linear-gradient(to right, #dbeafe, #bfdbfe);
+            border-bottom: 3px solid #3b82f6;
+            padding: 1.25rem 1.5rem;
+        }
+
+            .details-card .card-header h3 {
+                color: #1e40af;
+                font-weight: 700;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 1.5rem;
+            }
+
+        .details-card .card-body {
+            padding: 2rem;
+        }
+
+    .detail-item {
+        display: flex;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        background: #f8fafc;
+        border-radius: 8px;
+        border-left: 4px solid #3b82f6;
+    }
+
+    .detail-label {
+        flex: 0 0 180px;
+        font-weight: 700;
+        color: #1e293b;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.5px;
+    }
+
+    .detail-value {
+        flex: 1;
+        color: #475569;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+        .detail-value.highlight {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+    .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+        .status-badge.fully-paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.pending {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+    .progress-section {
+        background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        border: 2px solid #93c5fd;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .progress-percentage {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e40af;
+    }
+
+    .progress-bar-large {
+        height: 24px;
+        background: #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        transition: width 0.5s ease;
+    }
+
+    .progress-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .progress-stat {
+        text-align: center;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+    }
+
+    .progress-stat-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .payments-table {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+    }
+
+        .payments-table h5 {
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+    .table thead th {
+        background: linear-gradient(to right, #f8fafc, #f1f5f9);
+        color: #1e293b;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        padding: 1rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .table tbody td {
+        padding: 1rem;
+        vertical-align: middle;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #94a3b8;
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+    @@media (max-width: 768px) {
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .detail-label {
+            flex: none;
+        }
+    }
+</style>
+
+<div class="page-header">
+    <a asp-action="Index" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to List</span>
+    </a>
+    <a asp-action="AddPayment" asp-route-id="@Model.Loan.Id" class="btn-add-payment">
+        <i class="fas fa-plus"></i>
+        <span>Add Payment</span>
+    </a>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="details-card card">
+                    <div class="card-header">
+                        <h3>
+                            <i class="fas fa-file-invoice"></i>
+                            Loan Details
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-user me-1"></i>
+                                Lender Name
+                            </div>
+                            <div class="detail-value highlight">
+                                @Model.Loan.LenderName
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-money-bill-wave me-1"></i>
+                                Loan Amount
+                            </div>
+                            <div class="detail-value" style="color: #3b82f6; font-size: 1.25rem; font-weight: 700;">
+                                ৳ @Model.Loan.LoanAmount.ToString("N2")
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="far fa-calendar me-1"></i>
+                                Loan Date
+                            </div>
+                            <div class="detail-value">
+                                @Model.Loan.LoanDate.ToString("dd-MMMM-yyyy")
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="far fa-calendar-check me-1"></i>
+                                Due Date
+                            </div>
+                            <div class="detail-value">
+                                @if (Model.Loan.DueDate.HasValue)
+                                {
+                                    @Model.Loan.DueDate.Value.ToString("dd-MMMM-yyyy")
+                                }
+                                else
+                                {
+                                    <em class="text-muted">No due date set</em>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-align-left me-1"></i>
+                                Description
+                            </div>
+                            <div class="detail-value">
+                                @if (string.IsNullOrEmpty(Model.Loan.Description))
+                                {
+                                    <em class="text-muted">No description provided</em>
+                                }
+                                else
+                                {
+                                    @Model.Loan.Description
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-flag me-1"></i>
+                                Status
+                            </div>
+                            <div class="detail-value">
+                                @if (Model.Loan.IsFullyPaid)
+                                {
+                                    <span class="status-badge fully-paid">
+                                        <i class="fas fa-check-circle"></i> Fully Paid
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge pending">
+                                        <i class="fas fa-exclamation-circle"></i> Pending Payment
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <h4 style="margin: 0; color: #1e40af;">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Payment Progress
+                        </h4>
+                        <div class="progress-percentage">@progress.ToString("N0")%</div>
+                    </div>
+                    <div class="progress-bar-large">
+                        <div class="progress-fill" style="width: @progress%"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <div class="progress-stat-label">Total Borrowed</div>
+                            <div class="progress-stat-value" style="color: #3b82f6;">
+                                ৳ @Model.Loan.LoanAmount.ToString("N2")
+                            </div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-label">Amount Paid</div>
+                            <div class="progress-stat-value" style="color: #10b981;">
+                                ৳ @Model.Loan.AmountPaid.ToString("N2")
+                            </div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-label">Balance Due</div>
+                            <div class="progress-stat-value" style="color: #ef4444;">
+                                ৳ @Model.Loan.BalanceDue.ToString("N2")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payments-table">
+                    <h5>
+                        <i class="fas fa-history"></i>
+                        Payment History
+                    </h5>
+                    @if (Model.Payments != null && Model.Payments.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><i class="far fa-calendar me-1"></i> Payment Date</th>
+                                        <th><i class="fas fa-dollar-sign me-1"></i> Amount</th>
+                                        <th><i class="fas fa-sticky-note me-1"></i> Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var payment in Model.Payments)
+                                    {
+                                        <tr>
+                                            <td>@payment.PaymentDate.ToString("dd-MMM-yyyy")</td>
+                                            <td>
+                                                <strong style="color: #10b981;">৳ @payment.PaymentAmount.ToString("N2")</strong>
+                                            </td>
+                                            <td>
+                                                @if (string.IsNullOrEmpty(payment.Note))
+                                                {
+                                                    <em class="text-muted">No note</em>
+                                                }
+                                                else
+                                                {
+                                                    @payment.Note
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No payments made yet</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

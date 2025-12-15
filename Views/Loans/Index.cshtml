@@ -1,0 +1,495 @@
+﻿@model ExpenseApp.Models.LoanViewModel
+
+@{
+    ViewData["Title"] = "Loan Management";
+}
+
+<link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --warning-color: #f59e0b;
+        --info-color: #06b6d4;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-header-content h1 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+        font-size: 1.75rem;
+    }
+
+    .page-header-content .subtitle {
+        color: rgba(255,255,255,0.9);
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-create-new {
+        background: white;
+        color: #d97706;
+        border: none;
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-create-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+        border-left: 4px solid;
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card.total {
+            border-left-color: #3b82f6;
+        }
+
+        .stat-card.paid {
+            border-left-color: #10b981;
+        }
+
+        .stat-card.due {
+            border-left-color: #ef4444;
+        }
+
+    .stat-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .stat-card.total .stat-icon {
+        background: #eff6ff;
+        color: #3b82f6;
+    }
+
+    .stat-card.paid .stat-icon {
+        background: #ecfdf5;
+        color: #10b981;
+    }
+
+    .stat-card.due .stat-icon {
+        background: #fef2f2;
+        color: #ef4444;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+    }
+
+    .stat-card.total .stat-value {
+        color: #3b82f6;
+    }
+
+    .stat-card.paid .stat-value {
+        color: #10b981;
+    }
+
+    .stat-card.due .stat-value {
+        color: #ef4444;
+    }
+
+    .table-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        padding: 1.5rem;
+        border: none;
+    }
+
+    #loansTable {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        #loansTable thead th {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            color: #92400e;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        #loansTable tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+            #loansTable tbody tr:hover {
+                background-color: #fffbeb;
+                transform: scale(1.01);
+                box-shadow: var(--shadow-sm);
+            }
+
+        #loansTable tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+    .status-badge {
+        padding: 0.5rem 0.75rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .status-badge.fully-paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.pending {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-badge.partial {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+    .progress-bar-container {
+        width: 150px;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+
+    .action-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .action-icons a:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+    .action-icons .text-primary {
+        background: #eff6ff;
+    }
+
+        .action-icons .text-primary:hover {
+            background: #dbeafe;
+        }
+
+    .action-icons .text-success {
+        background: #f0fdf4;
+    }
+
+        .action-icons .text-success:hover {
+            background: #dcfce7;
+        }
+
+    .action-icons .text-warning {
+        background: #fef3c7;
+    }
+
+        .action-icons .text-warning:hover {
+            background: #fde68a;
+        }
+
+    .action-icons .text-danger {
+        background: #fef2f2;
+    }
+
+        .action-icons .text-danger:hover {
+            background: #fee2e2;
+        }
+
+    .action-icons .disabled-btn {
+        background: #f3f4f6;
+        color: #9ca3af;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+        .action-icons .disabled-btn:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+    @@media (max-width: 767px) {
+        .page-header {
+            padding: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .page-header-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .btn-create-new {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stats-container {
+            grid-template-columns: 1fr;
+        }
+
+        .table-card {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .action-icons a {
+            width: 32px;
+            height: 32px;
+        }
+    }
+</style>
+
+<div class="page-header">
+    <div class="page-header-content">
+        <h1><i class="fas fa-hand-holding-usd me-2"></i>Loan Management</h1>
+        <div class="subtitle">Track money borrowed and payment status</div>
+    </div>
+    <a asp-action="Create" class="btn btn-create-new">
+        <i class="fas fa-plus"></i>
+        <span>Add New Loan</span>
+    </a>
+</div>
+
+<div class="stats-container">
+    <div class="stat-card total">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="stat-label">Total Borrowed</div>
+        </div>
+        <div class="stat-value">৳ @Model.TotalLoanAmount.ToString("N2")</div>
+    </div>
+
+    <div class="stat-card paid">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-label">Total Paid</div>
+        </div>
+        <div class="stat-value">৳ @Model.TotalPaidAmount.ToString("N2")</div>
+    </div>
+
+    <div class="stat-card due">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="stat-label">Balance Due</div>
+        </div>
+        <div class="stat-value">৳ @Model.TotalBalanceDue.ToString("N2")</div>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table id="loansTable" class="table table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-user me-1"></i> Lender</th>
+                    <th><i class="fas fa-calendar me-1"></i> Loan Date</th>
+                    <th><i class="fas fa-calendar-check me-1"></i> Due Date</th>
+                    <th><i class="fas fa-money-bill me-1"></i> Loan Amount</th>
+                    <th><i class="fas fa-coins me-1"></i> Paid Amount</th>
+                    <th><i class="fas fa-hourglass-half me-1"></i> Balance</th>
+                    <th><i class="fas fa-chart-line me-1"></i> Progress</th>
+                    <th><i class="fas fa-flag me-1"></i> Status</th>
+                    <th><i class="fas fa-cog me-1"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Loans)
+                {
+                    var progress = item.LoanAmount > 0 ? (item.AmountPaid / item.LoanAmount * 100) : 0;
+                    <tr>
+                        <td><strong>@item.LenderName</strong></td>
+                        <td>@item.LoanDate.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (item.DueDate.HasValue)
+                            {
+                                <span>@item.DueDate.Value.ToString("dd-MMM-yyyy")</span>
+                            }
+                            else
+                            {
+                                <em class="text-muted">No due date</em>
+                            }
+                        </td>
+                        <td><strong style="color: #3b82f6;">৳ @item.LoanAmount.ToString("N2")</strong></td>
+                        <td><strong style="color: #10b981;">৳ @item.AmountPaid.ToString("N2")</strong></td>
+                        <td><strong style="color: #ef4444;">৳ @item.BalanceDue.ToString("N2")</strong></td>
+                        <td>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: @progress%"></div>
+                            </div>
+                            <small class="text-muted">@progress.ToString("N0")%</small>
+                        </td>
+                        <td>
+                            @if (item.IsFullyPaid)
+                            {
+                                <span class="status-badge fully-paid">
+                                    <i class="fas fa-check-circle"></i> Fully Paid
+                                </span>
+                            }
+                            else if (item.AmountPaid > 0)
+                            {
+                                <span class="status-badge partial">
+                                    <i class="fas fa-clock"></i> Partial
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-badge pending">
+                                    <i class="fas fa-exclamation-circle"></i> Pending
+                                </span>
+                            }
+                        </td>
+                        <td class="action-icons">
+                            @if (!item.IsFullyPaid)
+                            {
+                                <a asp-action="AddPayment" asp-route-id="@item.Id" data-toggle="tooltip" title="Add Payment" class="text-success">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="disabled-btn" data-toggle="tooltip" title="Loan fully paid">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </span>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id" data-toggle="tooltip" title="Details" class="text-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Edit" class="text-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Delete" class="text-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#loansTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+                order: [[1, 'desc']],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search loans...",
+                    lengthMenu: "Show _MENU_ entries"
+                }
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

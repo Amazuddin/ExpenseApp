@@ -1,0 +1,530 @@
+﻿@model ExpenseApp.Models.ExpenseInfo
+
+@{
+    ViewData["Title"] = "Create Expense";
+}
+
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --warning-color: #f59e0b;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    body {
+        background: #f8fafc;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+        padding: 1.5rem 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn-back {
+        background: white;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.625rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: #f8fafc;
+            color: var(--primary-color);
+        }
+
+    .form-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+        .form-card .card-header {
+            background: linear-gradient(to right, #f0f9ff, #dbeafe);
+            border-bottom: 3px solid #3b82f6;
+            padding: 1.25rem 1.5rem;
+        }
+
+            .form-card .card-header h3 {
+                color: #1e40af;
+                font-weight: 700;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 1.5rem;
+            }
+
+        .form-card .card-body {
+            padding: 2rem;
+            background: #fafafa;
+        }
+
+    .input-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 1.5rem;
+        border: 2px solid #e5e7eb;
+    }
+
+    .form-label {
+        color: #374151;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+    }
+
+        .form-label.required::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        background: white;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
+            background: white;
+        }
+
+    .btn-add {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        border: none;
+        padding: 0.75rem 2.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        color: white;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+    .table-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: var(--shadow-sm);
+        border: 2px solid #e5e7eb;
+        margin-bottom: 1.5rem;
+    }
+
+        .table-section h5 {
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+    #expenseTable {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+        #expenseTable thead th {
+            background: linear-gradient(to right, #f8fafc, #f1f5f9);
+            color: #1e293b;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            text-align: left;
+        }
+
+        #expenseTable tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+            #expenseTable tbody tr:hover {
+                background-color: #f8fafc;
+                transform: scale(1.01);
+                box-shadow: var(--shadow-sm);
+            }
+
+        #expenseTable tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            color: #475569;
+        }
+
+    .btn-remove {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .btn-remove:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+    .btn-save {
+        background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-lg);
+        color: white;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+    .save-section {
+        background: linear-gradient(to right, #f0fdf4, #dcfce7);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        border: 2px solid #86efac;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #94a3b8;
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+    @@media (max-width: 768px) {
+        .page-header
+
+    {
+        padding: 1rem;
+    }
+
+    .form-card .card-body {
+        padding: 1rem;
+    }
+
+    .input-section {
+        padding: 1rem;
+    }
+
+    .table-section {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .btn-add,
+    .btn-save {
+        width: 100%;
+    }
+
+    }
+</style>
+
+<div class="page-header">
+    <a asp-action="Index" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to List</span>
+    </a>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-card card">
+                    <div class="card-header">
+                        <h3>
+                            <i class="fas fa-plus-circle"></i>
+                            Create New Expense
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="newExpenseForm">
+                            <!-- Input Section -->
+                            <div class="input-section">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <label asp-for="ExpenseHeadId" class="form-label required">
+                                            <i class="fas fa-tags me-1"></i>
+                                            Expense Head
+                                        </label>
+                                        <select asp-for="ExpenseHeadId" class="form-control" asp-items="ViewBag.ExpenseHeadId" required="">
+                                            <option value="">---- Select Expense Head ----</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="ExpenseDate" class="form-label required">
+                                            <i class="far fa-calendar-alt me-1"></i>
+                                            Expense Date
+                                        </label>
+                                        <input asp-for="ExpenseDate" class="form-control" required="" type="date" value="@ViewBag.ExpenseDate" />
+                                        <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <label asp-for="Description" class="form-label">
+                                            <i class="fas fa-align-left me-1"></i>
+                                            Description
+                                        </label>
+                                        <input asp-for="Description" class="form-control" placeholder="Enter expense description..." />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="ExpenseAmount" class="form-label required">
+                                            <i class="fas fa-money-bill-wave me-1"></i>
+                                            Expense Amount (BDT)
+                                        </label>
+                                        <input asp-for="ExpenseAmount" class="form-control" required="" placeholder="0.00" type="number" step="0.01" />
+                                        <span asp-validation-for="ExpenseAmount" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <button type="button" class="btn btn-add" id="addExpense">
+                                            <i class="fa fa-plus me-2"></i>
+                                            Add to List
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table Section -->
+                            <div class="table-section">
+                                <h5>
+                                    <i class="fas fa-list-ul"></i>
+                                    Expense List
+                                </h5>
+                                <div class="table-responsive">
+                                    <table class="table" id="expenseTable">
+                                        <thead>
+                                            <tr>
+                                                <th><i class="fas fa-tags me-1"></i> Expense Head</th>
+                                                <th><i class="far fa-calendar me-1"></i> Date</th>
+                                                <th><i class="fas fa-align-left me-1"></i> Description</th>
+                                                <th><i class="fas fa-money-bill-wave me-1"></i> Amount (BDT)</th>
+                                                <th><i class="fas fa-cog me-1"></i> Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="empty-state">
+                                                <td colspan="5">
+                                                    <i class="fas fa-inbox"></i>
+                                                    <p>No expenses added yet. Fill the form above and click "Add to List"</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Save Section -->
+                            <div class="save-section">
+                                <button type="button" class="btn btn-save" id="saveExpense">
+                                    <i class="fa fa-check-circle me-2"></i>
+                                    Save All Expenses
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Add Expense to Table
+            $('#addExpense').on('click', function () {
+                var expenseHeadId = $('#ExpenseHeadId').val();
+                var expenseHeadText = $('#ExpenseHeadId option:selected').text();
+                var expenseDate = $('#ExpenseDate').val();
+                var description = $('#Description').val();
+                var expenseAmount = $('#ExpenseAmount').val();
+
+                if (expenseHeadId && expenseDate && expenseAmount) {
+                    // Remove empty state if it exists
+                    $('#expenseTable tbody .empty-state').remove();
+
+                    // Add new row with animation
+                    var newRow = $('<tr style="display:none;">' +
+                        '<td><input type="hidden" name="ExpenseHeadId[]" value="' + expenseHeadId + '"/><strong>' + expenseHeadText + '</strong></td>' +
+                        '<td><input type="hidden" name="ExpenseDate[]" value="' + expenseDate + '"/>' + expenseDate + '</td>' +
+                        '<td><input type="hidden" name="Description[]" value="' + description + '"/>' + (description || '<em class="text-muted">No description</em>') + '</td>' +
+                        '<td><input type="hidden" name="ExpenseAmount[]" value="' + expenseAmount + '"/><strong style="color: #dc2626;">৳ ' + parseFloat(expenseAmount).toFixed(2) + '</strong></td>' +
+                        '<td><button type="button" class="btn btn-remove btn-sm removeExpense"><i class="fa fa-trash me-1"></i> Remove</button></td>' +
+                        '</tr>');
+
+                    $('#expenseTable tbody').append(newRow);
+                    newRow.fadeIn(400);
+
+                    // Clear form fields
+                    $('#ExpenseHeadId').val('');
+                    $('#ExpenseDate').val('@ViewBag.ExpenseDate');
+                    $('#Description').val('');
+                    $('#ExpenseAmount').val('');
+
+                    // Focus on first field
+                    $('#ExpenseHeadId').focus();
+
+                    toastr.success('Expense added to list successfully!');
+                } else {
+                    toastr.warning('Please fill in all required fields (Expense Head, Date, and Amount).');
+                }
+            });
+
+            // Delete Added Expense with animation
+            $(document).on('click', '.removeExpense', function () {
+                var row = $(this).closest('tr');
+
+                row.css('background-color', '#fee2e2');
+                row.fadeOut(600, function () {
+                    row.remove();
+
+                    // Show empty state if no rows left
+                    if ($('#expenseTable tbody tr').length === 0) {
+                        $('#expenseTable tbody').html(
+                            '<tr class="empty-state">' +
+                            '<td colspan="5">' +
+                            '<i class="fas fa-inbox"></i>' +
+                            '<p>No expenses added yet. Fill the form above and click "Add to List"</p>' +
+                            '</td>' +
+                            '</tr>'
+                        );
+                    }
+                });
+
+                toastr.info('Expense removed from list.');
+            });
+
+            // Save all expenses
+            $('#saveExpense').on('click', function () {
+                var expenseList = [];
+
+                // Check if there are any expenses to save
+                if ($('#expenseTable tbody tr').hasClass('empty-state')) {
+                    toastr.warning('Please add at least one expense before saving.');
+                    return;
+                }
+
+                $('#expenseTable tbody tr').each(function () {
+                    var expense = {
+                        ExpenseHeadId: $(this).find('input[name="ExpenseHeadId[]"]').val(),
+                        ExpenseDate: $(this).find('input[name="ExpenseDate[]"]').val(),
+                        Description: $(this).find('input[name="Description[]"]').val(),
+                        ExpenseAmount: $(this).find('input[name="ExpenseAmount[]"]').val()
+                    };
+                    expenseList.push(expense);
+                });
+
+                // Disable save button to prevent double submission
+                $('#saveExpense').prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Saving...');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create", "ExpenseInfoes")',
+                    contentType: 'application/json',
+                    data: JSON.stringify(expenseList),
+                    success: function (response) {
+                        if (response.flag === 'y') {
+                            toastr.success(response.msg);
+                            setTimeout(function () {
+                                window.location.href = '@Url.Action("Index", "ExpenseInfoes")';
+                            }, 1500);
+                        } else {
+                            toastr.error(response.msg);
+                            $('#saveExpense').prop('disabled', false).html('<i class="fa fa-check-circle me-2"></i>Save All Expenses');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('An error occurred while saving. Please try again.');
+                        $('#saveExpense').prop('disabled', false).html('<i class="fa fa-check-circle me-2"></i>Save All Expenses');
+                    }
+                });
+            });
+
+            // Allow pressing Enter to add expense
+            $('#newExpenseForm input').on('keypress', function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    $('#addExpense').click();
+                }
+            });
+        });
+    </script>
+}

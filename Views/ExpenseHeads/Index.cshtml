@@ -1,0 +1,555 @@
+﻿@model IEnumerable<ExpenseApp.Models.ExpenseHead>
+
+@{
+    ViewData["Title"] = "Expense Head Management";
+}
+
+<link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --info-color: #06b6d4;
+        --border-radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    body {
+        background: #f8fafc;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-header-content h1 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+        font-size: 1.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .page-header-content .subtitle {
+        color: rgba(255,255,255,0.9);
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-create-new {
+        background: white;
+        color: #0891b2;
+        border: none;
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-create-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: #f0fdfa;
+            color: #0891b2;
+        }
+
+    .table-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        padding: 1.5rem;
+        margin-top: 2rem;
+        border: none;
+    }
+
+    #myTable {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        #myTable thead th {
+            background: linear-gradient(to right, #ecfeff, #cffafe);
+            color: #0e7490;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            border-bottom: 2px solid #06b6d4;
+        }
+
+        #myTable tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+            #myTable tbody tr:hover {
+                background-color: #ecfeff;
+                transform: scale(1.01);
+                box-shadow: var(--shadow-sm);
+            }
+
+        #myTable tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            color: #475569;
+        }
+
+    .id-badge {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        color: #1e40af;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 700;
+        display: inline-block;
+        font-size: 0.875rem;
+    }
+
+    .name-cell {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 1rem;
+    }
+
+    .action-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .action-icons a:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+    .action-icons .text-primary {
+        background: #eff6ff;
+        color: #2563eb;
+    }
+
+        .action-icons .text-primary:hover {
+            background: #dbeafe;
+        }
+
+    .action-icons .text-danger {
+        background: #fef2f2;
+        color: #dc2626;
+    }
+
+        .action-icons .text-danger:hover {
+            background: #fee2e2;
+        }
+
+    /* DataTables Custom Styling */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 1rem;
+    }
+
+        .dataTables_wrapper .dataTables_length select,
+        .dataTables_wrapper .dataTables_filter input {
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 0.375rem 0.75rem;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border: 2px solid #06b6d4;
+        }
+
+            .dataTables_wrapper .dataTables_filter input:focus {
+                border-color: #0891b2;
+                box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+                outline: none;
+            }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background: var(--info-color) !important;
+        border-color: var(--info-color) !important;
+        color: white !important;
+        border-radius: 6px;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .dt-buttons {
+        margin-bottom: 1rem;
+    }
+
+    .dt-button {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+        border: none !important;
+        color: white !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 6px !important;
+        margin-right: 0.5rem !important;
+        transition: all 0.3s ease !important;
+        font-weight: 600 !important;
+    }
+
+        .dt-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm) !important;
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #94a3b8;
+    }
+
+        .empty-state i {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+            color: #06b6d4;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+    .info-badge {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        color: #1e40af;
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 600;
+        border: 2px solid #93c5fd;
+    }
+
+    @@media (max-width: 767px) {
+        .page-header {
+            padding: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .page-header-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .btn-create-new {
+            width: 100%;
+            justify-content: center;
+        }
+
+        #myTable_wrapper .dataTables_scrollBody {
+            max-height: 300px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        .action-icons a {
+            width: 32px;
+            height: 32px;
+        }
+
+        .table-card {
+            padding: 1rem;
+        }
+    }
+
+    /* Animation */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .table-card {
+        animation: fadeInUp 0.5s ease;
+    }
+</style>
+
+<div class="page-header">
+    <div class="page-header-content">
+        <h1>
+            <i class="fas fa-tags"></i>
+            Expense Head Management
+        </h1>
+        <div class="subtitle">Manage and organize your expense categories</div>
+    </div>
+    <a asp-action="Create" class="btn-create-new">
+        <i class="fas fa-plus-circle"></i>
+        <span>Create New Head</span>
+    </a>
+</div>
+
+<div class="table-card">
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table id="myTable" class="table table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i> ID</th>
+                        <th><i class="fas fa-tag me-1"></i> Expense Head Name</th>
+                        <th><i class="fas fa-cog me-1"></i> Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="id-badge">#@Html.DisplayFor(modelItem => item.Id)</span>
+                            </td>
+                            <td class="name-cell">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="action-icons">
+                                <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Edit" class="text-primary">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Delete" class="text-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-folder-open"></i>
+            <h3>No Expense Heads Found</h3>
+            <p>Get started by creating your first expense head category</p>
+            <a asp-action="Create" class="btn-create-new">
+                <i class="fas fa-plus-circle"></i>
+                <span>Create First Head</span>
+            </a>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/js/jszip.min.js"></script>
+    <script src="~/lib/datatables/js/pdfmake.min.js"></script>
+    <script src="~/lib/datatables/js/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            @if (Model != null && Model.Any())
+            {
+                        <text>
+                        var table = $('#myTable').DataTable({
+                            paging: true,
+                            searching: true,
+                            ordering: true,
+                            info: true,
+                            responsive: true,
+                            dom: 'lBfrtip',
+                            buttons: [
+                                {
+                                    extend: 'spacer',
+                                    style: 'bar'
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class="fas fa-file-excel me-1"></i> Excel',
+                                    className: 'btn-success',
+                                    exportOptions: {
+                                        columns: [0, 1] // Only export ID and Name columns (exclude Actions)
+                                    },
+                                    title: 'Expense Head Management Report',
+                                    messageTop: 'Generated on: ' + new Date().toLocaleDateString()
+                                },
+                                {
+                                    extend: 'pdf',
+                                    text: '<i class="fas fa-file-pdf me-1"></i> PDF',
+                                    className: 'btn-danger',
+                                    exportOptions: {
+                                        columns: [0, 1] // Only export ID and Name columns (exclude Actions)
+                                    },
+                                    title: 'Expense Head Management Report',
+                                    messageTop: 'Generated on: ' + new Date().toLocaleDateString(),
+                                    customize: function(doc) {
+                                        // PDF Design Customization
+                                        doc.defaultStyle.fontSize = 10;
+                                        doc.styles.tableHeader.fontSize = 11;
+                                        doc.styles.tableHeader.bold = true;
+                                        doc.styles.tableHeader.fillColor = '#06b6d4';
+                                        doc.styles.tableHeader.color = '#ffffff';
+                                        doc.styles.tableHeader.alignment = 'center';
+
+                                        // Title styling
+                                        doc.styles.title = {
+                                            fontSize: 18,
+                                            bold: true,
+                                            alignment: 'center',
+                                            color: '#0891b2',
+                                            margin: [0, 0, 0, 10]
+                                        };
+
+                                        // Message styling
+                                        doc.styles.message = {
+                                            fontSize: 9,
+                                            alignment: 'right',
+                                            color: '#64748b',
+                                            margin: [0, 0, 0, 10]
+                                        };
+
+                                        // Table body styling
+                                        doc.content[2].table.widths = ['20%', '80%'];
+                                        doc.content[2].layout = {
+                                            hLineWidth: function(i, node) {
+                                                return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                            },
+                                            vLineWidth: function(i, node) {
+                                                return 0;
+                                            },
+                                            hLineColor: function(i, node) {
+                                                return (i === 0 || i === node.table.body.length) ? '#06b6d4' : '#e5e7eb';
+                                            },
+                                            paddingLeft: function(i, node) { return 10; },
+                                            paddingRight: function(i, node) { return 10; },
+                                            paddingTop: function(i, node) { return 8; },
+                                            paddingBottom: function(i, node) { return 8; },
+                                            fillColor: function(rowIndex, node, columnIndex) {
+                                                return (rowIndex === 0) ? '#06b6d4' : (rowIndex % 2 === 0) ? '#f8fafc' : null;
+                                            }
+                                        };
+
+                                        // Center align ID column
+                                        doc.content[2].table.body.forEach(function(row, index) {
+                                            if (index > 0) {
+                                                row[0].alignment = 'center';
+                                            }
+                                        });
+
+                                        // Add footer
+                                        doc['footer'] = function(currentPage, pageCount) {
+                                            return {
+                                                columns: [
+                                                    {
+                                                        text: 'Expense Management System',
+                                                        alignment: 'left',
+                                                        fontSize: 8,
+                                                        color: '#94a3b8',
+                                                        margin: [40, 0]
+                                                    },
+                                                    {
+                                                        text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                                                        alignment: 'right',
+                                                        fontSize: 8,
+                                                        color: '#94a3b8',
+                                                        margin: [0, 0, 40, 0]
+                                                    }
+                                                ]
+                                            };
+                                        };
+
+                                        // Add page margins
+                                        doc.pageMargins = [40, 60, 40, 60];
+                                    }
+                                },
+                                {
+                                    extend: 'print',
+                                    text: '<i class="fas fa-print me-1"></i> Print',
+                                    className: 'btn-info',
+                                    exportOptions: {
+                                        columns: [0, 1] // Only export ID and Name columns (exclude Actions)
+                                    },
+                                    title: 'Expense Head Management Report',
+                                    messageTop: '<div style="text-align: right; color: #64748b; margin-bottom: 10px;">Generated on: ' + new Date().toLocaleDateString() + '</div>',
+                                    customize: function(win) {
+                                        $(win.document.body).css('font-family', 'Arial, sans-serif');
+                                        $(win.document.body).find('table').addClass('display').css('font-size', '12px');
+                                        $(win.document.body).find('h1').css({
+                                            'text-align': 'center',
+                                            'color': '#0891b2',
+                                            'font-size': '24px',
+                                            'margin-bottom': '20px'
+                                        });
+                                        $(win.document.body).find('table thead th').css({
+                                            'background-color': '#06b6d4',
+                                            'color': 'white',
+                                            'text-align': 'center',
+                                            'padding': '10px'
+                                        });
+                                        $(win.document.body).find('table tbody td').css({
+                                            'padding': '8px',
+                                            'border-bottom': '1px solid #e5e7eb'
+                                        });
+                                    }
+                                }
+                            ],
+                            language: {
+                                search: "_INPUT_",
+                                searchPlaceholder: "Search expense heads...",
+                                lengthMenu: "Show _MENU_ entries",
+                                info: "Showing _START_ to _END_ of _TOTAL_ expense heads",
+                                emptyTable: "No expense heads available"
+                            }
+                        });
+                        </text>
+            }
+
+            // Initialize tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}
