@@ -2237,3 +2237,4 @@ D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\refint\ExpenseApp.dll
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.pdb
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.genruntimeconfig.cache
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ref\ExpenseApp.dll
+D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.sourcelink.json
