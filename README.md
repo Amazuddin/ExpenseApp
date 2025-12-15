@@ -52,7 +52,7 @@
 
 ### 📈 Loan Details & Payment Tracking
 <p align="center">
-  <img src="screenshots/loan-details.png" alt="Loan Payment Progress" width="900">
+  <img src="screenshots/loan-detail.png" alt="Loan Payment Progress" width="900">
 </p>
 
 *Detailed payment progress with visual indicators and complete payment history*
