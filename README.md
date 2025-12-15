@@ -1,7 +1,17 @@
 # ExpenseApp - Personal Finance Management System
 
-## Overview
-ExpenseApp is a comprehensive web-based personal finance management application built with ASP.NET Core MVC. It provides users with an intuitive platform to track daily expenses and manage borrowed funds, helping individuals maintain better control over their financial health.
+<p align="center">
+  <img src="https://img.shields.io/badge/ASP.NET%20Core-MVC-blue" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/C%23-Language-purple" alt="C#">
+  <img src="https://img.shields.io/badge/Bootstrap-4-563d7c" alt="Bootstrap">
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+</p>
+
+<p align="center">
+  <strong>A comprehensive web-based personal finance management application built with ASP.NET Core MVC</strong>
+</p>
+
+---
 
 ## 📸 Application Screenshots
 
@@ -45,6 +55,13 @@ ExpenseApp is a comprehensive web-based personal finance management application 
 <p align="center">
   <img src="screenshots/loan-details.png" alt="Loan Payment Progress" width="900">
 </p>
+
+*Detailed payment progress with visual indicators and complete payment history*
+
+---
+
+## Overview
+ExpenseApp is a comprehensive web-based personal finance management application built with ASP.NET Core MVC. It provides users with an intuitive platform to track daily expenses and manage borrowed funds, helping individuals maintain better control over their financial health.
 
 ## Purpose
 The application addresses the common challenge of personal financial management by offering a centralized system to:
