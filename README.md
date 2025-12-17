@@ -1,5 +1,64 @@
 # ExpenseApp - Personal Finance Management System
 
+<p align="center">
+  <img src="https://img.shields.io/badge/ASP.NET%20Core-MVC-blue" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/C%23-Language-purple" alt="C#">
+  <img src="https://img.shields.io/badge/Bootstrap-4-563d7c" alt="Bootstrap">
+  <img src="https://img.shields.io/badge/Entity%20Framework-Core-green" alt="Entity Framework Core">
+  <img src="https://img.shields.io/badge/jQuery-JS-0769ad" alt="jQuery">
+</p>
+
+<p align="center">
+  <strong>A comprehensive web-based personal finance management application built with ASP.NET Core MVC</strong>
+</p>
+
+---
+
+### 🏠 Home Page & Landing
+<p align="center">
+  <img src="screenshots/home-page.png" alt="ExpenseApp Home Page" width="900">
+</p>
+
+*Welcome page with key features overview*
+
+---
+
+### 📊 Expense Management Dashboard
+<p align="center">
+  <img src="screenshots/expense-list.png" alt="Expense List" width="900">
+</p>
+
+*Track all your expenses with smart filtering, search capabilities, and export options*
+
+---
+
+### 🏷️ Expense Categories
+<p align="center">
+  <img src="screenshots/expense-heads.png" alt="Expense Categories" width="900">
+</p>
+
+*Manage and organize expense categories (Medicines, Food, etc.)*
+
+---
+
+### 💳 Loan Management Dashboard
+<p align="center">
+  <img src="screenshots/loan-dashboard.png" alt="Loan Management" width="900">
+</p>
+
+*Complete overview of all loans with payment progress, statistics, and status indicators*
+
+---
+
+### 📈 Loan Details & Payment Tracking
+<p align="center">
+  <img src="screenshots/loan-detail.png" alt="Loan Payment Progress" width="900">
+</p>
+
+*Detailed payment progress with visual indicators and complete payment history*
+
+---
+
 ## Overview
 ExpenseApp is a comprehensive web-based personal finance management application built with ASP.NET Core MVC. It provides users with an intuitive platform to track daily expenses and manage borrowed funds, helping individuals maintain better control over their financial health.
 
