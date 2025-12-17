@@ -36,5 +36,11 @@ namespace ExpenseApp.Models
 
         [NotMapped]
         public bool IsFullyPaid => AmountPaid >= LoanAmount;
+
+        [Display(Name = "Document")]
+        public string? DocumentPath { get; set; }
+
+        [NotMapped]
+        public bool HasDocument => !string.IsNullOrEmpty(DocumentPath);
     }
 }

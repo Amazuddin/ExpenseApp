@@ -240,7 +240,7 @@
         transition: width 0.5s ease;
     }
 
-    .action-icons a {
+    .action-icons a, .action-icons span {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -289,6 +289,14 @@
             background: #fee2e2;
         }
 
+    .action-icons .text-info {
+        background: #ecfeff;
+    }
+
+        .action-icons .text-info:hover {
+            background: #cffafe;
+        }
+
     .action-icons .disabled-btn {
         background: #f3f4f6;
         color: #9ca3af;
@@ -302,34 +310,37 @@
         }
 
     @@media (max-width: 767px) {
-        .page-header {
-            padding: 1.5rem;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+        .page-header
 
-        .page-header-content h1 {
-            font-size: 1.5rem;
-        }
+    {
+        padding: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        .btn-create-new {
-            width: 100%;
-            justify-content: center;
-        }
+    .page-header-content h1 {
+        font-size: 1.5rem;
+    }
 
-        .stats-container {
-            grid-template-columns: 1fr;
-        }
+    .btn-create-new {
+        width: 100%;
+        justify-content: center;
+    }
 
-        .table-card {
-            padding: 1rem;
-            overflow-x: auto;
-        }
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
 
-        .action-icons a {
-            width: 32px;
-            height: 32px;
-        }
+    .table-card {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .action-icons a, .action-icons span {
+        width: 32px;
+        height: 32px;
+    }
+
     }
 </style>
 
@@ -439,9 +450,24 @@
                             }
                         </td>
                         <td class="action-icons">
+                            @* Document Download *@
+                            @if (!string.IsNullOrEmpty(item.DocumentPath))
+                            {
+                                <a asp-action="DownloadDocument" asp-route-id="@item.Id"
+                                   data-toggle="tooltip"
+                                   title="Download Document"
+                                   class="text-info">
+                                    <i class="fas fa-file-download"></i>
+                                </a>
+                            }
+
+                            @* Add Payment *@
                             @if (!item.IsFullyPaid)
                             {
-                                <a asp-action="AddPayment" asp-route-id="@item.Id" data-toggle="tooltip" title="Add Payment" class="text-success">
+                                <a asp-action="AddPayment" asp-route-id="@item.Id"
+                                   data-toggle="tooltip"
+                                   title="Add Payment"
+                                   class="text-success">
                                     <i class="fas fa-dollar-sign"></i>
                                 </a>
                             }
@@ -451,13 +477,28 @@
                                     <i class="fas fa-dollar-sign"></i>
                                 </span>
                             }
-                            <a asp-action="Details" asp-route-id="@item.Id" data-toggle="tooltip" title="Details" class="text-primary">
+
+                            @* Details *@
+                            <a asp-action="Details" asp-route-id="@item.Id"
+                               data-toggle="tooltip"
+                               title="Details"
+                               class="text-primary">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" title="Edit" class="text-warning">
+
+                            @* Edit *@
+                            <a asp-action="Edit" asp-route-id="@item.Id"
+                               data-toggle="tooltip"
+                               title="Edit"
+                               class="text-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" title="Delete" class="text-danger">
+
+                            @* Delete *@
+                            <a asp-action="Delete" asp-route-id="@item.Id"
+                               data-toggle="tooltip"
+                               title="Delete"
+                               class="text-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

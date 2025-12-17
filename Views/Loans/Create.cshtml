@@ -126,6 +126,105 @@
         font-weight: 500;
     }
 
+    .file-upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-upload-input {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-upload-button {
+        border: 2px dashed #e5e7eb;
+        border-radius: 8px;
+        padding: 2rem;
+        background: #f8fafc;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-upload-button:hover {
+            border-color: var(--primary-color);
+            background: #fffbeb;
+        }
+
+    .file-upload-icon {
+        font-size: 3rem;
+        color: #9ca3af;
+        margin-bottom: 0.5rem;
+    }
+
+    .file-upload-text {
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .file-upload-hint {
+        color: #9ca3af;
+        font-size: 0.875rem;
+    }
+
+    .file-preview {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f0fdf4;
+        border: 2px solid #86efac;
+        border-radius: 8px;
+        display: none;
+    }
+
+        .file-preview.active {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .file-icon {
+        font-size: 2rem;
+        color: #10b981;
+    }
+
+    .file-details strong {
+        color: #065f46;
+        display: block;
+    }
+
+    .file-size {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .btn-remove-file {
+        background: #fee2e2;
+        color: #dc2626;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .btn-remove-file:hover {
+            background: #fecaca;
+        }
+
     .btn-save {
         background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
         border: none;
@@ -196,7 +295,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form asp-action="Create" id="loanForm">
+                        <form asp-action="Create" id="loanForm" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                             <div class="form-section">
@@ -238,7 +337,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row mb-3">
                                     <div class="col-12">
                                         <label asp-for="Description" class="form-label">
                                             <i class="fas fa-align-left me-1"></i>
@@ -246,6 +345,39 @@
                                         </label>
                                         <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter loan details or purpose..."></textarea>
                                         <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="form-label">
+                                            <i class="fas fa-file-upload me-1"></i>
+                                            Loan Document (Optional)
+                                        </label>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" name="document" id="documentInput" class="file-upload-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+                                            <div class="file-upload-button">
+                                                <div class="file-upload-icon">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                </div>
+                                                <div class="file-upload-text">Click to upload or drag and drop</div>
+                                                <div class="file-upload-hint">PDF, JPG, PNG, DOC (Max 1MB)</div>
+                                            </div>
+                                        </div>
+                                        <div class="file-preview" id="filePreview">
+                                            <div class="file-info">
+                                                <div class="file-icon">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="file-details">
+                                                    <strong id="fileName">document.pdf</strong>
+                                                    <span class="file-size" id="fileSize">0 KB</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-remove-file" onclick="removeFile()">
+                                                <i class="fas fa-times me-1"></i> Remove
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -271,6 +403,21 @@
 
     <script>
         $(document).ready(function () {
+            // Handle file input change
+            $('#documentInput').on('change', function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    // Check file size (1MB = 1048576 bytes)
+                    if (file.size > 1048576) {
+                        toastr.error('File size must be less than 1MB');
+                        removeFile();
+                        return;
+                    }
+                    displayFilePreview(file);
+                }
+            });
+
+            // Handle form submission with AJAX
             $('#loanForm').on('submit', function(e) {
                 e.preventDefault();
 
@@ -278,13 +425,18 @@
                     return;
                 }
 
-                var formData = {
-                    LenderName: $('#LenderName').val(),
-                    LoanAmount: $('#LoanAmount').val(),
-                    LoanDate: $('#LoanDate').val(),
-                    DueDate: $('#DueDate').val() || null,
-                    Description: $('#Description').val()
-                };
+                var formData = new FormData();
+                formData.append('LenderName', $('#LenderName').val());
+                formData.append('LoanAmount', $('#LoanAmount').val());
+                formData.append('LoanDate', $('#LoanDate').val());
+                formData.append('DueDate', $('#DueDate').val() || '');
+                formData.append('Description', $('#Description').val() || '');
+
+                // Add document if selected
+                var fileInput = document.getElementById('documentInput');
+                if (fileInput.files.length > 0) {
+                    formData.append('document', fileInput.files[0]);
+                }
 
                 var submitBtn = $('.btn-save');
                 submitBtn.prop('disabled', true);
@@ -293,8 +445,9 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Create", "Loans")',
-                    data: JSON.stringify(formData),
-                    contentType: 'application/json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         if (response.flag === 'y') {
                             toastr.success(response.msg);
@@ -315,5 +468,25 @@
                 });
             });
         });
+
+        function displayFilePreview(file) {
+            var fileSize = (file.size / 1024).toFixed(2); // KB
+            var fileSizeText = fileSize + ' KB';
+
+            if (fileSize > 1024) {
+                fileSizeText = (fileSize / 1024).toFixed(2) + ' MB';
+            }
+
+            $('#fileName').text(file.name);
+            $('#fileSize').text(fileSizeText);
+            $('#filePreview').addClass('active');
+            $('.file-upload-button').css('border-color', '#10b981');
+        }
+
+        function removeFile() {
+            $('#documentInput').val('');
+            $('#filePreview').removeClass('active');
+            $('.file-upload-button').css('border-color', '#e5e7eb');
+        }
     </script>
 }

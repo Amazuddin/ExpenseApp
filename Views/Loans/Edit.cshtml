@@ -210,6 +210,176 @@
         border: 2px solid #93c5fd;
     }
 
+    .current-document {
+        background: #f0fdf4;
+        border: 2px solid #86efac;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .current-document-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .current-document-icon {
+        font-size: 2rem;
+        color: #10b981;
+    }
+
+    .current-document-text strong {
+        color: #065f46;
+        display: block;
+    }
+
+    .current-document-text small {
+        color: #6b7280;
+    }
+
+    .document-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-download-current {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-download-current:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+    .btn-remove-current {
+        background: #fee2e2;
+        color: #dc2626;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .btn-remove-current:hover {
+            background: #fecaca;
+        }
+
+    .file-upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-upload-input {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-upload-button {
+        border: 2px dashed #e5e7eb;
+        border-radius: 8px;
+        padding: 2rem;
+        background: #f8fafc;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-upload-button:hover {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+    .file-upload-icon {
+        font-size: 3rem;
+        color: #9ca3af;
+        margin-bottom: 0.5rem;
+    }
+
+    .file-upload-text {
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .file-upload-hint {
+        color: #9ca3af;
+        font-size: 0.875rem;
+    }
+
+    .file-preview {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f0fdf4;
+        border: 2px solid #86efac;
+        border-radius: 8px;
+        display: none;
+    }
+
+        .file-preview.active {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .file-icon {
+        font-size: 2rem;
+        color: #10b981;
+    }
+
+    .file-details strong {
+        color: #065f46;
+        display: block;
+    }
+
+    .file-size {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .btn-remove-file {
+        background: #fee2e2;
+        color: #dc2626;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .btn-remove-file:hover {
+            background: #fecaca;
+        }
+
     .button-section {
         background: linear-gradient(to right, #d1fae5, #a7f3d0);
         padding: 2rem;
@@ -244,22 +414,25 @@
         }
 
     @@media (max-width: 768px) {
-        .page-header {
-            padding: 1.5rem;
-        }
+        .page-header
 
-        .edit-card .card-body {
-            padding: 1.5rem;
-        }
+    {
+        padding: 1.5rem;
+    }
 
-        .form-section {
-            padding: 1.5rem;
-        }
+    .edit-card .card-body {
+        padding: 1.5rem;
+    }
 
-        .btn-update {
-            width: 100%;
-            justify-content: center;
-        }
+    .form-section {
+        padding: 1.5rem;
+    }
+
+    .btn-update {
+        width: 100%;
+        justify-content: center;
+    }
+
     }
 </style>
 
@@ -317,10 +490,11 @@
                             </div>
                         }
 
-                        <form asp-action="Edit">
+                        <form asp-action="Edit" method="post" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                             <input type="hidden" asp-for="Id" />
                             <input type="hidden" asp-for="AmountPaid" />
+                            <input type="hidden" asp-for="DocumentPath" />
 
                             <div class="form-section">
                                 <div class="row mb-3">
@@ -374,7 +548,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row mb-3">
                                     <div class="col-12">
                                         <label asp-for="Description" class="form-label">
                                             <i class="fas fa-align-left"></i>
@@ -382,6 +556,77 @@
                                         </label>
                                         <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter loan details or purpose..."></textarea>
                                         <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="form-label">
+                                            <i class="fas fa-file-upload"></i>
+                                            Loan Document (Optional)
+                                        </label>
+
+                                        @* Show current document if exists *@
+                                        @if (!string.IsNullOrEmpty(Model.DocumentPath))
+                                        {
+                                            <div class="current-document" id="currentDocument">
+                                                <div class="current-document-info">
+                                                    <div class="current-document-icon">
+                                                        <i class="fas fa-file-alt"></i>
+                                                    </div>
+                                                    <div class="current-document-text">
+                                                        <strong>Current Document</strong>
+                                                        <small>A document is already attached to this loan</small>
+                                                    </div>
+                                                </div>
+                                                <div class="document-actions">
+                                                    <a asp-action="DownloadDocument" asp-route-id="@Model.Id" class="btn-download-current" target="_blank">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </a>
+                                                    <button type="button" class="btn-remove-current" onclick="removeCurrentDocument()">
+                                                        <i class="fas fa-times me-1"></i> Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="removeDocument" id="removeDocumentFlag" value="false" />
+                                        }
+
+                                        @* Upload new document *@
+                                        <div id="uploadSection">
+                                            <div class="file-upload-wrapper">
+                                                <input type="file" name="document" id="documentInput" class="file-upload-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+                                                <div class="file-upload-button">
+                                                    <div class="file-upload-icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <div class="file-upload-text">
+                                                        @if (!string.IsNullOrEmpty(Model.DocumentPath))
+                                                        {
+                                                            <span>Replace with new document (Click to upload or drag and drop)</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Click to upload or drag and drop</span>
+                                                        }
+                                                    </div>
+                                                    <div class="file-upload-hint">PDF, JPG, PNG, DOC (Max 1MB)</div>
+                                                </div>
+                                            </div>
+                                            <div class="file-preview" id="filePreview">
+                                                <div class="file-info">
+                                                    <div class="file-icon">
+                                                        <i class="fas fa-file-alt"></i>
+                                                    </div>
+                                                    <div class="file-details">
+                                                        <strong id="fileName">document.pdf</strong>
+                                                        <span class="file-size" id="fileSize">0 KB</span>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn-remove-file" onclick="removeFile()">
+                                                    <i class="fas fa-times me-1"></i> Remove
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -407,6 +652,30 @@
 
     <script>
         $(document).ready(function () {
+            // Handle file input change
+            $('#documentInput').on('change', function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    // Check file size (1MB = 1048576 bytes)
+                    if (file.size > 1048576) {
+                        toastr.error('File size must be less than 1MB');
+                        removeFile();
+                        return;
+                    }
+
+                    // Validate file type
+                    var allowedTypes = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
+                    var extension = file.name.split('.').pop().toLowerCase();
+                    if (!allowedTypes.includes(extension)) {
+                        toastr.error('Only PDF, JPG, PNG, DOC, and DOCX files are allowed');
+                        removeFile();
+                        return;
+                    }
+
+                    displayFilePreview(file);
+                }
+            });
+
             $('form').on('submit', function() {
                 var submitBtn = $('.btn-update');
                 submitBtn.prop('disabled', true);
@@ -415,5 +684,46 @@
 
             $('#LenderName').focus();
         });
+
+        function displayFilePreview(file) {
+            var fileSize = (file.size / 1024).toFixed(2); // KB
+            var fileSizeText = fileSize + ' KB';
+
+            if (fileSize > 1024) {
+                fileSizeText = (fileSize / 1024).toFixed(2) + ' MB';
+            }
+
+            // Show appropriate icon based on file type
+            var extension = file.name.split('.').pop().toLowerCase();
+            var iconClass = 'fa-file-alt';
+
+            if (extension === 'pdf') {
+                iconClass = 'fa-file-pdf';
+            } else if (['jpg', 'jpeg', 'png'].includes(extension)) {
+                iconClass = 'fa-file-image';
+            } else if (['doc', 'docx'].includes(extension)) {
+                iconClass = 'fa-file-word';
+            }
+
+            $('.file-icon i').attr('class', 'fas ' + iconClass);
+            $('#fileName').text(file.name);
+            $('#fileSize').text(fileSizeText);
+            $('#filePreview').addClass('active');
+            $('.file-upload-button').css('border-color', '#10b981');
+        }
+
+        function removeFile() {
+            $('#documentInput').val('');
+            $('#filePreview').removeClass('active');
+            $('.file-upload-button').css('border-color', '#e5e7eb');
+        }
+
+        function removeCurrentDocument() {
+            if (confirm('Are you sure you want to remove the current document?')) {
+                $('#currentDocument').hide();
+                $('#removeDocumentFlag').val('true');
+                toastr.success('Document will be removed when you save the changes');
+            }
+        }
     </script>
 }

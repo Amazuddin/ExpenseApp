@@ -4,6 +4,7 @@ using ExpenseApp.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseApp.Migrations
 {
     [DbContext(typeof(ExpenseAppContext))]
-    partial class ExpenseAppContextModelSnapshot : ModelSnapshot
+    [Migration("20251217042159_AddLoanDocumentPath")]
+    partial class AddLoanDocumentPath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -148,6 +148,27 @@
             color: #991b1b;
         }
 
+    .btn-download-doc {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-download-doc:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
     .progress-section {
         background: linear-gradient(to right, #f0f9ff, #e0f2fe);
         padding: 2rem;
@@ -258,20 +279,23 @@
         }
 
     @@media (max-width: 768px) {
-        .page-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
+        .page-header
 
-        .detail-item {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 
-        .detail-label {
-            flex: none;
-        }
+    .detail-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .detail-label {
+        flex: none;
+    }
+
     }
 </style>
 
@@ -379,6 +403,27 @@
                                     <span class="status-badge pending">
                                         <i class="fas fa-exclamation-circle"></i> Pending Payment
                                     </span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-file-alt me-1"></i>
+                                Document
+                            </div>
+                            <div class="detail-value">
+                                @if (!string.IsNullOrEmpty(Model.Loan.DocumentPath))
+                                {
+                                    <a asp-action="DownloadDocument" asp-route-id="@Model.Loan.Id"
+                                       class="btn-download-doc">
+                                        <i class="fas fa-download me-1"></i>
+                                        Download Document
+                                    </a>
+                                }
+                                else
+                                {
+                                    <em class="text-muted">No document attached</em>
                                 }
                             </div>
                         </div>

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ExpenseApp.Contexts;
 using ExpenseApp.Models;
@@ -12,10 +15,12 @@ namespace ExpenseApp.Controllers
     public class LoansController : Controller
     {
         private readonly ExpenseAppContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public LoansController(ExpenseAppContext context)
+        public LoansController(ExpenseAppContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Loans
@@ -77,13 +82,28 @@ namespace ExpenseApp.Controllers
 
         // POST: Loans/Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Loan loan)
+        public async Task<IActionResult> Create([FromForm] Loan loan, IFormFile? document)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     loan.AmountPaid = 0;
+
+                    // Handle document upload
+                    if (document != null && document.Length > 0)
+                    {
+                        var uploadResult = await SaveDocument(document);
+                        if (uploadResult.Success)
+                        {
+                            loan.DocumentPath = uploadResult.FilePath;
+                        }
+                        else
+                        {
+                            return Json(new { flag = 'n', msg = uploadResult.ErrorMessage });
+                        }
+                    }
+
                     _context.Add(loan);
                     await _context.SaveChangesAsync();
                     return Json(new { flag = 'y', msg = "Loan saved successfully" });
@@ -121,7 +141,7 @@ namespace ExpenseApp.Controllers
         // POST: Loans/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,LenderName,LoanAmount,AmountPaid,LoanDate,DueDate,Description")] Loan loan)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,LenderName,LoanAmount,AmountPaid,LoanDate,DueDate,Description,DocumentPath")] Loan loan, IFormFile? document, bool removeDocument = false)
         {
             if (id != loan.Id)
             {
@@ -159,6 +179,40 @@ namespace ExpenseApp.Controllers
             {
                 try
                 {
+                    // Handle document removal
+                    if (removeDocument && !string.IsNullOrEmpty(originalLoan.DocumentPath))
+                    {
+                        DeleteDocument(originalLoan.DocumentPath);
+                        loan.DocumentPath = null;
+                    }
+                    // Handle new document upload
+                    else if (document != null && document.Length > 0)
+                    {
+                        // Delete old document if exists
+                        if (!string.IsNullOrEmpty(originalLoan.DocumentPath))
+                        {
+                            DeleteDocument(originalLoan.DocumentPath);
+                        }
+
+                        var uploadResult = await SaveDocument(document);
+                        if (uploadResult.Success)
+                        {
+                            loan.DocumentPath = uploadResult.FilePath;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", uploadResult.ErrorMessage);
+                            ViewBag.HasPayments = originalLoan.AmountPaid > 0;
+                            ViewBag.LoanDate = loan.LoanDate.ToString("yyyy-MM-dd");
+                            return View(loan);
+                        }
+                    }
+                    else
+                    {
+                        // Keep existing document
+                        loan.DocumentPath = originalLoan.DocumentPath;
+                    }
+
                     _context.Update(loan);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Loan updated successfully!";
@@ -209,6 +263,12 @@ namespace ExpenseApp.Controllers
             var loan = await _context.Loans.FindAsync(id);
             if (loan != null)
             {
+                // Delete document if exists
+                if (!string.IsNullOrEmpty(loan.DocumentPath))
+                {
+                    DeleteDocument(loan.DocumentPath);
+                }
+
                 // Delete all related payments first
                 var payments = await _context.LoanPayments.Where(p => p.LoanId == id).ToListAsync();
                 _context.LoanPayments.RemoveRange(payments);
@@ -218,6 +278,46 @@ namespace ExpenseApp.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Loans/DownloadDocument/5
+        public async Task<IActionResult> DownloadDocument(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loan = await _context.Loans.FindAsync(id);
+            if (loan == null || string.IsNullOrEmpty(loan.DocumentPath))
+            {
+                return NotFound();
+            }
+
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, loan.DocumentPath.TrimStart('/'));
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            // Get file name from path
+            var fileName = Path.GetFileName(filePath);
+
+            // Determine content type from extension
+            var extension = Path.GetExtension(filePath).ToLower();
+            var contentType = extension switch
+            {
+                ".pdf" => "application/pdf",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".doc" => "application/msword",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                _ => "application/octet-stream"
+            };
+
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            return File(fileBytes, contentType, fileName);
         }
 
         // GET: Loans/AddPayment/5
@@ -244,7 +344,7 @@ namespace ExpenseApp.Controllers
         // POST: Loans/AddPayment
         [HttpPost]
         public async Task<IActionResult> AddPayment([FromBody] LoanPayment payment)
-       {
+        {
             ModelState.Remove("Loan");
 
             if (ModelState.IsValid)
@@ -274,6 +374,71 @@ namespace ExpenseApp.Controllers
             // Return validation errors for debugging
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
             return Json(new { flag = 'n', msg = "Invalid payment data: " + string.Join(", ", errors) });
+        }
+
+
+        // Helper: Save document (1MB limit)
+        private async Task<(bool Success, string FilePath, string ErrorMessage)> SaveDocument(IFormFile file)
+        {
+            try
+            {
+                // Validate file type
+                var allowedExtensions = new[] { ".pdf", ".jpg", ".jpeg", ".png", ".doc", ".docx" };
+                var extension = Path.GetExtension(file.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    return (false, null, "Only PDF, JPG, PNG, DOC, and DOCX files are allowed.");
+                }
+
+                // Validate file size: Max 1MB
+                if (file.Length > 1 * 1024 * 1024)
+                {
+                    return (false, null, "File size must be less than 1MB.");
+                }
+
+                // Create uploads directory
+                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", "loan-documents");
+                Directory.CreateDirectory(uploadsFolder);
+
+                // Generate unique filename
+                var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Save file
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                // Return relative path
+                var relativePath = $"/uploads/loan-documents/{uniqueFileName}";
+                return (true, relativePath, null);
+            }
+            catch (Exception ex)
+            {
+                return (false, null, $"Error uploading file: {ex.Message}");
+            }
+        }
+
+        // Helper: Delete document
+        private void DeleteDocument(string documentPath)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(documentPath))
+                {
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, documentPath.TrimStart('/'));
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+            }
+            catch
+            {
+                // Silently fail - don't block main operation
+            }
         }
 
         private bool LoanExists(long id)

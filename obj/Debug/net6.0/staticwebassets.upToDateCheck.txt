@@ -165,3 +165,4 @@ wwwroot\lib\toastr.js\toastr.css
 wwwroot\lib\toastr.js\toastr.js.map
 wwwroot\lib\toastr.js\toastr.min.css
 wwwroot\lib\toastr.js\toastr.min.js
+wwwroot\uploads\loan-documents\592340c1-e0e7-4121-9754-830f0613af90.png
