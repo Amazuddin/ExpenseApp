@@ -1,9 +1,11 @@
 ﻿using ExpenseApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ExpenseApp.Contexts
 {
-    public class ExpenseAppContext : DbContext
+    public class ExpenseAppContext : IdentityDbContext<IdentityUser>
     {
         public ExpenseAppContext(DbContextOptions<ExpenseAppContext> options)
             : base(options)

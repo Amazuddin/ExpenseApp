@@ -1,17 +1,19 @@
-﻿using System;
+﻿using ExpenseApp.Contexts;
+using ExpenseApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using ExpenseApp.Contexts;
-using ExpenseApp.Models;
 
 namespace ExpenseApp.Controllers
 {
+    [Authorize]
     public class LoansController : Controller
     {
         private readonly ExpenseAppContext _context;

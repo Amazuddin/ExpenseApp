@@ -7,6 +7,7 @@
 <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/buttons.dataTables.min.css" rel="stylesheet" />
 
 <style>
     :root {
@@ -309,6 +310,45 @@
             box-shadow: none;
         }
 
+    /* DataTables Button Styling */
+    .dt-buttons {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        display: inline-block;
+    }
+
+    .dataTables_length {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    .dt-button {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+        border: none !important;
+        color: white !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 6px !important;
+        margin-right: 0.5rem !important;
+        transition: all 0.3s ease !important;
+        font-weight: 600 !important;
+    }
+
+        .dt-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm) !important;
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+        }
+
+    /* DataTables wrapper layout */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: inline-block;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+        margin-right: 2rem;
+    }
+
     @@media (max-width: 767px) {
         .page-header
 
@@ -339,6 +379,17 @@
     .action-icons a, .action-icons span {
         width: 32px;
         height: 32px;
+    }
+
+    .dt-buttons {
+        margin-left: 0;
+        display: block;
+        margin-top: 1rem;
+    }
+
+    .dataTables_length {
+        display: block;
+        margin-bottom: 1rem;
     }
 
     }
@@ -407,6 +458,7 @@
                 @foreach (var item in Model.Loans)
                 {
                     var progress = item.LoanAmount > 0 ? (item.AmountPaid / item.LoanAmount * 100) : 0;
+                    var statusText = item.IsFullyPaid ? "Fully Paid" : (item.AmountPaid > 0 ? "Partial" : "Pending");
                     <tr>
                         <td><strong>@item.LenderName</strong></td>
                         <td>@item.LoanDate.ToString("dd-MMM-yyyy")</td>
@@ -420,16 +472,16 @@
                                 <em class="text-muted">No due date</em>
                             }
                         </td>
-                        <td><strong style="color: #3b82f6;">৳ @item.LoanAmount.ToString("N2")</strong></td>
-                        <td><strong style="color: #10b981;">৳ @item.AmountPaid.ToString("N2")</strong></td>
-                        <td><strong style="color: #ef4444;">৳ @item.BalanceDue.ToString("N2")</strong></td>
-                        <td>
+                        <td data-order="@item.LoanAmount"><strong style="color: #3b82f6;">৳ @item.LoanAmount.ToString("N2")</strong></td>
+                        <td data-order="@item.AmountPaid"><strong style="color: #10b981;">৳ @item.AmountPaid.ToString("N2")</strong></td>
+                        <td data-order="@item.BalanceDue"><strong style="color: #ef4444;">৳ @item.BalanceDue.ToString("N2")</strong></td>
+                        <td data-order="@progress">
                             <div class="progress-bar-container">
                                 <div class="progress-bar-fill" style="width: @progress%"></div>
                             </div>
                             <small class="text-muted">@progress.ToString("N0")%</small>
                         </td>
-                        <td>
+                        <td data-order="@statusText">
                             @if (item.IsFullyPaid)
                             {
                                 <span class="status-badge fully-paid">
@@ -513,16 +565,191 @@
 {
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/js/jszip.min.js"></script>
+    <script src="~/lib/datatables/js/pdfmake.min.js"></script>
+    <script src="~/lib/datatables/js/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/js/buttons.print.min.js"></script>
 
     <script>
         $(document).ready(function () {
+            // Get summary data
+            var totalBorrowed = '@Model.TotalLoanAmount.ToString("N2")';
+            var totalPaid = '@Model.TotalPaidAmount.ToString("N2")';
+            var balanceDue = '@Model.TotalBalanceDue.ToString("N2")';
+
             $('#loansTable').DataTable({
                 paging: true,
                 searching: true,
                 ordering: true,
                 info: true,
                 responsive: true,
-                order: [[1, 'desc']],
+                order: [[1, 'desc']], // Sort by Loan Date descending
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel me-1"></i> Excel',
+                        className: 'btn-success',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7] // Exclude Progress and Actions
+                        },
+                        title: 'Loan Management Report',
+                        messageTop: 'Generated on: ' + new Date().toLocaleDateString(),
+                        messageBottom: 'Summary - Total Borrowed: ৳' + totalBorrowed + ' | Total Paid: ৳' + totalPaid + ' | Balance Due: ৳' + balanceDue
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf me-1"></i> PDF',
+                        className: 'btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7] // Exclude Progress and Actions
+                        },
+                        title: 'Loan Management Report',
+                        messageTop: 'Generated on: ' + new Date().toLocaleDateString(),
+                        messageBottom: 'Summary - Total Borrowed: ৳' + totalBorrowed + ' | Total Paid: ৳' + totalPaid + ' | Balance Due: ৳' + balanceDue,
+                        customize: function(doc) {
+                            // PDF styling
+                            doc.defaultStyle.fontSize = 9;
+                            doc.styles.tableHeader.fontSize = 10;
+                            doc.styles.tableHeader.bold = true;
+                            doc.styles.tableHeader.fillColor = '#f59e0b';
+                            doc.styles.tableHeader.color = '#ffffff';
+                            doc.styles.tableHeader.alignment = 'center';
+
+                            // Title styling
+                            doc.styles.title = {
+                                fontSize: 18,
+                                bold: true,
+                                alignment: 'center',
+                                color: '#d97706',
+                                margin: [0, 0, 0, 10]
+                            };
+
+                            // Table layout
+                            doc.content[2].table.widths = ['15%', '12%', '12%', '12%', '12%', '12%', '12%'];
+                            doc.content[2].layout = {
+                                hLineWidth: function(i, node) {
+                                    return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                },
+                                vLineWidth: function(i) {
+                                    return 0;
+                                },
+                                hLineColor: function(i, node) {
+                                    return (i === 0 || i === node.table.body.length) ? '#f59e0b' : '#e5e7eb';
+                                },
+                                paddingLeft: function(i) { return 8; },
+                                paddingRight: function(i) { return 8; },
+                                paddingTop: function(i) { return 6; },
+                                paddingBottom: function(i) { return 6; },
+                                fillColor: function(rowIndex) {
+                                    return (rowIndex === 0) ? '#f59e0b' : (rowIndex % 2 === 0) ? '#fffbeb' : null;
+                                }
+                            };
+
+                            // Right align amount columns
+                            doc.content[2].table.body.forEach(function(row, index) {
+                                if (index > 0) {
+                                    row[1].alignment = 'center'; // Loan Date
+                                    row[2].alignment = 'center'; // Due Date
+                                    row[3].alignment = 'right'; // Loan Amount
+                                    row[4].alignment = 'right'; // Paid Amount
+                                    row[5].alignment = 'right'; // Balance
+                                    row[6].alignment = 'center'; // Status
+                                }
+                            });
+
+                            // Add summary table at the bottom
+                            doc.content.push({
+                                margin: [0, 20, 0, 0],
+                                table: {
+                                    widths: ['*', '*', '*'],
+                                    body: [
+                                        [
+                                            { text: 'Total Borrowed', bold: true, fillColor: '#dbeafe', alignment: 'center' },
+                                            { text: 'Total Paid', bold: true, fillColor: '#dcfce7', alignment: 'center' },
+                                            { text: 'Balance Due', bold: true, fillColor: '#fee2e2', alignment: 'center' }
+                                        ],
+                                        [
+                                            { text: '৳' + totalBorrowed, fontSize: 12, bold: true, color: '#3b82f6', fillColor: '#dbeafe', alignment: 'center' },
+                                            { text: '৳' + totalPaid, fontSize: 12, bold: true, color: '#10b981', fillColor: '#dcfce7', alignment: 'center' },
+                                            { text: '৳' + balanceDue, fontSize: 12, bold: true, color: '#ef4444', fillColor: '#fee2e2', alignment: 'center' }
+                                        ]
+                                    ]
+                                },
+                                layout: {
+                                    hLineWidth: function(i, node) { return 2; },
+                                    vLineWidth: function(i) { return 0; },
+                                    hLineColor: function() { return '#e5e7eb'; }
+                                }
+                            });
+
+                            // Add footer
+                            doc['footer'] = function(currentPage, pageCount) {
+                                return {
+                                    columns: [
+                                        {
+                                            text: 'Loan Management System',
+                                            alignment: 'left',
+                                            fontSize: 8,
+                                            color: '#94a3b8',
+                                            margin: [40, 0]
+                                        },
+                                        {
+                                            text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                                            alignment: 'right',
+                                            fontSize: 8,
+                                            color: '#94a3b8',
+                                            margin: [0, 0, 40, 0]
+                                        }
+                                    ]
+                                };
+                            };
+
+                            doc.pageMargins = [40, 60, 40, 60];
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print me-1"></i> Print',
+                        className: 'btn-info',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7] // Exclude Progress and Actions
+                        },
+                        title: 'Loan Management Report',
+                        messageTop: '<div style="text-align: right; color: #64748b; margin-bottom: 10px;">Generated on: ' + new Date().toLocaleDateString() + '</div>',
+                        messageBottom: '<div style="margin-top: 20px; padding: 15px; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 8px;"><table style="width: 100%; font-weight: bold;"><tr><td style="text-align: center; color: #3b82f6;">Total Borrowed<br/>৳' + totalBorrowed + '</td><td style="text-align: center; color: #10b981;">Total Paid<br/>৳' + totalPaid + '</td><td style="text-align: center; color: #ef4444;">Balance Due<br/>৳' + balanceDue + '</td></tr></table></div>',
+                        customize: function(win) {
+                            $(win.document.body).css('font-family', 'Arial, sans-serif');
+                            $(win.document.body).find('table').addClass('display').css('font-size', '11px');
+                            $(win.document.body).find('h1').css({
+                                'text-align': 'center',
+                                'color': '#f59e0b',
+                                'font-size': '24px',
+                                'margin-bottom': '20px'
+                            });
+                            $(win.document.body).find('table thead th').css({
+                                'background-color': '#f59e0b',
+                                'color': 'white',
+                                'text-align': 'center',
+                                'padding': '10px'
+                            });
+                            $(win.document.body).find('table tbody td').css({
+                                'padding': '8px',
+                                'border-bottom': '1px solid #e5e7eb'
+                            });
+                            // Style amount columns
+                            $(win.document.body).find('table tbody tr').each(function() {
+                                $(this).find('td:eq(3)').css({ 'text-align': 'right', 'color': '#3b82f6', 'font-weight': 'bold' });
+                                $(this).find('td:eq(4)').css({ 'text-align': 'right', 'color': '#10b981', 'font-weight': 'bold' });
+                                $(this).find('td:eq(5)').css({ 'text-align': 'right', 'color': '#ef4444', 'font-weight': 'bold' });
+                            });
+                        }
+                    }
+                ],
                 language: {
                     search: "_INPUT_",
                     searchPlaceholder: "Search loans...",

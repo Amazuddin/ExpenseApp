@@ -103,6 +103,63 @@
                 box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
             }
 
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .btn-logout:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+                color: white;
+            }
+
+        .btn-login {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+                color: white;
+            }
+
         .navbar-toggler {
             border: 2px solid rgba(255, 255, 255, 0.2);
             padding: 0.5rem 0.75rem;
@@ -133,8 +190,6 @@
             min-height: calc(100vh - 200px);
         }
 
-
-
         /* Mobile Responsive */
         @@media (max-width: 768px) {
             .navbar-brand
@@ -145,6 +200,17 @@
 
         .nav-link {
             padding: 0.625rem 1rem !important;
+        }
+
+        .user-menu {
+            margin-top: 1rem;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .btn-logout, .btn-login {
+            width: 100%;
+            justify-content: center;
         }
 
         }
@@ -200,27 +266,52 @@
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse justify-content-center">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ExpenseInfoes" asp-action="Index">
-                                <i class="fas fa-list-ul"></i>
-                                Expense List
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Loans" asp-action="Index">
-                                <i class="fas fa-hand-holding-usd"></i>
-                                Loans
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ExpenseHeads" asp-action="Index">
-                                <i class="fas fa-tags"></i>
-                                Expense Head
-                            </a>
-                        </li>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav me-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="ExpenseInfoes" asp-action="Index">
+                                    <i class="fas fa-list-ul"></i>
+                                    Expense List
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Loans" asp-action="Index">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    Loans
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="ExpenseHeads" asp-action="Index">
+                                    <i class="fas fa-tags"></i>
+                                    Expense Head
+                                </a>
+                            </li>
+                        }
                     </ul>
+                    <div class="user-menu">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                @User.Identity.Name
+                            </span>
+                            <form asp-controller="Account" asp-action="Logout" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-logout">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-login">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Login
+                            </a>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>
@@ -231,8 +322,6 @@
             @RenderBody()
         </main>
     </div>
-
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -249,6 +338,51 @@
                     $(this).addClass('active');
                 }
             });
+
+            // Display success/error messages using Toastr
+            @if (TempData["SuccessMessage"] != null)
+            {
+                    <text>
+                    toastr.success('@TempData["SuccessMessage"]', 'Success', {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 3000
+                    });
+                    </text>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                    <text>
+                    toastr.error('@TempData["ErrorMessage"]', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 5000
+                    });
+                    </text>
+            }
+
+            @if (TempData["InfoMessage"] != null)
+            {
+                    <text>
+                    toastr.info('@TempData["InfoMessage"]', 'Info', {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 3000
+                    });
+                    </text>
+            }
+
+            @if (TempData["WarningMessage"] != null)
+            {
+                    <text>
+                    toastr.warning('@TempData["WarningMessage"]', 'Warning', {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 4000
+                    });
+                    </text>
+            }
         });
     </script>
 

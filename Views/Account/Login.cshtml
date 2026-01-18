@@ -1,0 +1,278 @@
+﻿@model ExpenseApp.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .login-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        overflow: hidden;
+        max-width: 450px;
+        width: 100%;
+        animation: slideUp 0.6s ease;
+    }
+
+    .login-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        color: white;
+    }
+
+        .login-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+    .login-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .login-body {
+        padding: 2.5rem 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+    .btn-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 10px;
+        padding: 0.875rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+        width: 100%;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #e2e8f0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+
+    .register-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+    }
+
+        .register-link a {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .register-link a:hover {
+                color: #764ba2;
+                text-decoration: underline;
+            }
+
+    .text-danger {
+        color: #ef4444 !important;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .alert-danger {
+        background-color: #fee2e2;
+        color: #991b1b;
+        border-left: 4px solid #ef4444;
+    }
+
+        .alert-danger i {
+            color: #ef4444;
+        }
+
+        .alert-danger ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+            .alert-danger ul li {
+                padding: 0.25rem 0;
+            }
+
+    @@keyframes slideUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .login-card
+
+    {
+        margin: 1rem;
+    }
+
+    .login-body {
+        padding: 2rem 1.5rem;
+    }
+
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue to ExpenseApp</p>
+        </div>
+        <div class="login-body">
+            <form asp-action="Login" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+                @if (ViewData.ModelState.Count > 0 && !ViewData.ModelState.IsValid)
+                {
+                    var errors = ViewData.ModelState.Where(x => x.Key != "returnUrl").SelectMany(x => x.Value.Errors);
+                    if (errors.Any())
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <strong>Login Failed!</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach (var error in errors)
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                        <label asp-for="RememberMe" class="form-check-label">
+                            Remember me
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-login">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Sign In
+                </button>
+
+                <div class="register-link">
+                    Don't have an account?
+                    <a asp-action="Register">Sign up here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

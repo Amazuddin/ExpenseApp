@@ -1994,6 +1994,10 @@ D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\refs\WindowsBase.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Humanizer.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\MessagePack.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\MessagePack.Annotations.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -2018,6 +2022,9 @@ D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.EntityFramework
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\Others\Projects\Writing\ExpenseApp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
@@ -2220,6 +2227,7 @@ D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.MvcApplication
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.MvcApplicationPartsAssemblyInfo.cache
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.RazorAssemblyInfo.cache
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.RazorAssemblyInfo.cs
+D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.sourcelink.json
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\rjimswa.dswa.cache.json
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\rjsmrazor.dswa.cache.json
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\rjsmcshtml.dswa.cache.json
@@ -2237,4 +2245,3 @@ D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\refint\ExpenseApp.dll
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.pdb
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.genruntimeconfig.cache
 D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ref\ExpenseApp.dll
-D:\Others\Projects\Writing\ExpenseApp\obj\Debug\net6.0\ExpenseApp.sourcelink.json

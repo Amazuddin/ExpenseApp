@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ExpenseApp.Contexts;
+using ExpenseApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ExpenseApp.Contexts;
-using ExpenseApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ExpenseApp.Controllers
 {
+    [Authorize]
     public class ExpenseHeadsController : Controller
     {
         private readonly ExpenseAppContext _context;
